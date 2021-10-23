@@ -1,6 +1,6 @@
-# rapid_reps
+# Rapid Reps
 
-A new Flutter project.
+This is a coursework project for ICT Project Management. The application we are making is made using Flutter and Firebase
 
 ## Getting Started
 
