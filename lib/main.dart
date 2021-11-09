@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:rapid_reps/screens/construction_page.dart';
+import 'screens/export.dart';
 
 void main() => runApp(const MyApp());
 
