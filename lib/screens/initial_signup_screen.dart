@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import '../widgets/export.dart';
+import 'export.dart';
 
 class InitialSignUpScreen extends StatefulWidget {
   const InitialSignUpScreen({Key? key}) : super(key: key);
@@ -33,96 +35,48 @@ class _InitialSignUpScreenState extends State<InitialSignUpScreen> {
                 child: Padding(
                   padding: const EdgeInsets.all(25.0),
                   child: Column(
-                    children: [
-                      const Text(
+                    children: const [
+                      Text(
                         "Sign Up",
                         style: TextStyle(
                           fontSize: 36.0,
                         ),
                       ),
-                      const SizedBox(
+                      SizedBox(
                         height: 25,
                       ),
-                      ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          primary: const Color(0xFF009FE3),
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 70,
-                            vertical: 10,
-                          ),
-                          textStyle: const TextStyle(fontSize: 20),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(25.0),
-                          ),
-                        ),
-                        child: const Text(
-                          'I Am A CDO',
-                          textAlign: TextAlign.center,
-                        ),
-                        onPressed: () {},
+                      CustomSignUpButton(
+                        buttonColour: Color(0xFF009FE3),
+                        horizontalPadding: 70,
+                        buttonText: 'I Am A CDO',
+                        pageRedirect: ConstructionPage(),
                       ),
-                      const SizedBox(
+                      SizedBox(
                         height: 25,
                       ),
-                      ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          primary: const Color(0xFF009B14),
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 60,
-                            vertical: 10,
-                          ),
-                          textStyle: const TextStyle(fontSize: 20),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(25.0),
-                          ),
-                        ),
-                        child: const Text(
-                          'I Am A Solicitor',
-                          textAlign: TextAlign.center,
-                        ),
-                        onPressed: () {},
+                      CustomSignUpButton(
+                        buttonColour: Color(0xFF009B14),
+                        horizontalPadding: 60,
+                        buttonText: 'I Am A Solicitor',
+                        pageRedirect: ConstructionPage(),
                       ),
-                      const SizedBox(
+                      SizedBox(
                         height: 25,
                       ),
-                      ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          primary: const Color(0xFF951B81),
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 10,
-                            vertical: 10,
-                          ),
-                          textStyle: const TextStyle(fontSize: 20),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(25.0),
-                          ),
-                        ),
-                        child: const Text(
-                          'I Am A Firm Representative',
-                          textAlign: TextAlign.center,
-                        ),
-                        onPressed: () {},
+                      CustomSignUpButton(
+                        buttonColour: Color(0xFF951B81),
+                        horizontalPadding: 10,
+                        buttonText: 'I Am A Firm Representative',
+                        pageRedirect: ConstructionPage(),
                       ),
-                      const SizedBox(
+                      SizedBox(
                         height: 25,
                       ),
-                      ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          primary: const Color(0xFFE30613),
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 105,
-                            vertical: 10,
-                          ),
-                          textStyle: const TextStyle(fontSize: 20),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(25.0),
-                          ),
-                        ),
-                        child: const Text(
-                          'Back',
-                          textAlign: TextAlign.center,
-                        ),
-                        onPressed: () {},
+                      CustomSignUpButton(
+                        buttonColour: Color(0xFFE30613),
+                        horizontalPadding: 105,
+                        buttonText: 'Back',
+                        pageRedirect: ConstructionPage(),
                       ),
                     ],
                   ),
