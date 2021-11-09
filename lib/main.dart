@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:rapid_reps/screens/construction_page.dart';
+import 'screens/export.dart';
 
 void main() => runApp(const MyApp());
 
@@ -15,7 +15,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: ConstructionPage(),
+      home: InitialSignUpScreen(),
     );
   }
 }
