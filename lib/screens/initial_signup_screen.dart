@@ -49,7 +49,7 @@ class _InitialSignUpScreenState extends State<InitialSignUpScreen> {
                         buttonColour: Color(0xFF009FE3),
                         horizontalPadding: 70,
                         buttonText: 'CDO',
-                        pageRedirect: CDOAgreemantPage(),
+                        pageRedirect: ConstructionPage(),
                       ),
                       SizedBox(
                         height: 25,
