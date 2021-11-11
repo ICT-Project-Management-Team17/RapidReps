@@ -48,7 +48,7 @@ class _InitialSignUpScreenState extends State<InitialSignUpScreen> {
                       CustomSignUpButton(
                         buttonColour: Color(0xFF009FE3),
                         horizontalPadding: 70,
-                        buttonText: 'I Am A CDO',
+                        buttonText: 'CDO',
                         pageRedirect: ConstructionPage(),
                       ),
                       SizedBox(
@@ -57,7 +57,7 @@ class _InitialSignUpScreenState extends State<InitialSignUpScreen> {
                       CustomSignUpButton(
                         buttonColour: Color(0xFF009B14),
                         horizontalPadding: 60,
-                        buttonText: 'I Am A Solicitor',
+                        buttonText: 'Solicitor',
                         pageRedirect: ConstructionPage(),
                       ),
                       SizedBox(
@@ -66,7 +66,7 @@ class _InitialSignUpScreenState extends State<InitialSignUpScreen> {
                       CustomSignUpButton(
                         buttonColour: Color(0xFF951B81),
                         horizontalPadding: 10,
-                        buttonText: 'I Am A Firm Representative',
+                        buttonText: 'Firm Representative',
                         pageRedirect: ConstructionPage(),
                       ),
                       SizedBox(
@@ -74,7 +74,7 @@ class _InitialSignUpScreenState extends State<InitialSignUpScreen> {
                       ),
                       CustomSignUpButton(
                         buttonColour: Color(0xFFE30613),
-                        horizontalPadding: 105,
+                        horizontalPadding: 50,
                         buttonText: 'Back',
                         pageRedirect: ConstructionPage(),
                       ),
