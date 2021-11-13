@@ -2,9 +2,8 @@ import 'package:flutter/material.dart';
 
 class AgreemantScreen extends StatefulWidget {
   final Color userColour;
-  final String user;
   const AgreemantScreen(
-      {Key? key, required this.userColour, required this.user})
+      {Key? key, required this.userColour})
       : super(key: key);
 
   @override
@@ -35,12 +34,12 @@ class _AgreemantScreenState extends State<AgreemantScreen> {
                   child: Column(
                     children: const [
                       Text(
-                        "{widget.user} Agreemant Page",
-                        style: TextStyle(
+                        "Basic Terms",
+                        style: const TextStyle(
                           fontSize: 25.0,
                         ),
                       ),
-                      SizedBox(
+                       SizedBox(
                         height: 25,
                       ),
                     ],
