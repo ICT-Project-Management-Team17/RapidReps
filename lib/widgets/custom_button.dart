@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 
-class CustomSignUpButton extends StatelessWidget {
+class CustomButton extends StatelessWidget {
   final Color buttonColour;
   final double horizontalPadding;
   final String buttonText;
-  final StatefulWidget pageRedirect;
+  final VoidCallback onPressed;
 
-  const CustomSignUpButton(
+  const CustomButton(
       {Key? key,
       required this.buttonColour,
       required this.horizontalPadding,
       required this.buttonText,
-      required this.pageRedirect})
+      required this.onPressed})
       : super(key: key);
 
   @override
@@ -32,14 +32,7 @@ class CustomSignUpButton extends StatelessWidget {
         buttonText,
         textAlign: TextAlign.center,
       ),
-      onPressed: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => pageRedirect,
-          ),
-        );
-      },
+      onPressed: onPressed,
     );
   }
 }
