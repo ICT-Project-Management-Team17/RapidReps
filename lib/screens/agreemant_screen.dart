@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:rapid_reps/utilities/constants.dart';
+import '../widgets/export.dart';
 
 class AgreemantScreen extends StatefulWidget {
   final Color userColour;
+  final String imageLocation;
+
   const AgreemantScreen(
-      {Key? key, required this.userColour})
+      {Key? key, required this.userColour, required this.imageLocation})
       : super(key: key);
 
   @override
@@ -11,43 +15,58 @@ class AgreemantScreen extends StatefulWidget {
 }
 
 class _AgreemantScreenState extends State<AgreemantScreen> {
+  var widgetList = [];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Container(
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  border: Border.all(
-                    color: widget.userColour,
-                    width: 5,
-                  ),
-                  borderRadius: const BorderRadius.all(
-                    Radius.circular(25.0),
-                  ),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Container(
+            constraints: const BoxConstraints(
+              maxHeight: 300,
+              maxWidth: 300,
+            ),
+            child: Image(
+                image: AssetImage(
+              widget.imageLocation,
+            )),
+          ),
+          Center(
+            child: Container(
+              decoration: BoxDecoration(
+                color: Colors.white,
+                border: Border.all(
+                  color: widget.userColour,
+                  width: 5,
                 ),
-                child: Padding(
-                  padding: const EdgeInsets.all(25.0),
-                  child: Column(
-                    children: const [
-                      Text(
-                        "Basic Terms",
-                        style: const TextStyle(
-                          fontSize: 25.0,
-                        ),
+                borderRadius: const BorderRadius.all(
+                  Radius.circular(25.0),
+                ),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(25.0),
+                child: Column(
+                  children: [
+                    const Text(
+                      "Basic Terms",
+                      style: TextStyle(
+                        fontSize: 25.0,
                       ),
-                       SizedBox(
-                        height: 25,
-                      ),
-                    ],
-                  ),
-                )),
-          ],
-        ),
+                    ),
+                    const SizedBox(
+                      height: 25,
+                    ),
+                    Text(kTerms)
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
+
 }

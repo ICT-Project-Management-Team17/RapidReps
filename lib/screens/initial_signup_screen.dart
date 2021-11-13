@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../widgets/export.dart';
+import 'package:rapid_reps/utilities/constants.dart';
 import 'export.dart';
 
 class InitialSignUpScreen extends StatefulWidget {
@@ -55,6 +56,8 @@ class _InitialSignUpScreenState extends State<InitialSignUpScreen> {
                             MaterialPageRoute(
                               builder: (context) => const AgreemantScreen(
                                 userColour: Color(0xFF009FE3),
+                                imageLocation:
+                                    'assets/images/police officer image.jpg',
                               ),
                             ),
                           );
@@ -73,6 +76,7 @@ class _InitialSignUpScreenState extends State<InitialSignUpScreen> {
                             MaterialPageRoute(
                               builder: (context) => const AgreemantScreen(
                                 userColour: Color(0xFF009B14),
+                                imageLocation: 'assets/images/lawyer.png',
                               ),
                             ),
                           );
@@ -91,6 +95,7 @@ class _InitialSignUpScreenState extends State<InitialSignUpScreen> {
                             MaterialPageRoute(
                               builder: (context) => const AgreemantScreen(
                                 userColour: Color(0xFF951B81),
+                                imageLocation: 'assets/images/firm.png',
                               ),
                             ),
                           );
