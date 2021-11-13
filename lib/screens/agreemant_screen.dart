@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
 
-class CDOAgreemantScreen extends StatefulWidget {
-  const CDOAgreemantScreen({Key? key}) : super(key: key);
+class AgreemantScreen extends StatefulWidget {
+  final Color userColour;
+  final String user;
+  const AgreemantScreen(
+      {Key? key, required this.userColour, required this.user})
+      : super(key: key);
 
   @override
-  _CDOAgreemantScreenState createState() => _CDOAgreemantScreenState();
+  _AgreemantScreenState createState() => _AgreemantScreenState();
 }
 
-class _CDOAgreemantScreenState extends State<CDOAgreemantScreen> {
+class _AgreemantScreenState extends State<AgreemantScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,7 +23,7 @@ class _CDOAgreemantScreenState extends State<CDOAgreemantScreen> {
                 decoration: BoxDecoration(
                   color: Colors.white,
                   border: Border.all(
-                    color: Color(0xFF009FE3),
+                    color: widget.userColour,
                     width: 5,
                   ),
                   borderRadius: const BorderRadius.all(
@@ -31,7 +35,7 @@ class _CDOAgreemantScreenState extends State<CDOAgreemantScreen> {
                   child: Column(
                     children: const [
                       Text(
-                        "CDO Agreemant Page",
+                        "{widget.user} Agreemant Page",
                         style: TextStyle(
                           fontSize: 25.0,
                         ),

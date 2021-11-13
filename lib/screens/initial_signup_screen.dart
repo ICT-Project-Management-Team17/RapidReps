@@ -53,7 +53,10 @@ class _InitialSignUpScreenState extends State<InitialSignUpScreen> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => const CDOAgreemantScreen(),
+                              builder: (context) => const AgreemantScreen(
+                                userColour: Color(0xFF009FE3),
+                                user: 'CDO',
+                              ),
                             ),
                           );
                         },
