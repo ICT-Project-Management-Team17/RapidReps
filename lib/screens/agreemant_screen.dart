@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:rapid_reps/utilities/constants.dart';
+import '../utilities/constants.dart';
+import 'export.dart';
 import '../widgets/export.dart';
 
 class AgreemantScreen extends StatefulWidget {
@@ -67,12 +68,31 @@ class _AgreemantScreenState extends State<AgreemantScreen> {
                     Text(
                       kTerms,
                       style: TextStyle(fontSize: 13),
+                    ),
+                    FloatingActionButton(
+                      onPressed: () {},
+                      child: Icon(Icons.volume_up),
+                      backgroundColor: widget.userColour,
                     )
                   ],
                 ),
               ),
             ),
           ),
+          const SizedBox(height: 10),
+          CustomButton(
+            buttonColour: widget.userColour,
+            horizontalPadding: 25,
+            buttonText: 'Agree & Continue',
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const ConstructionPage(),
+                ),
+              );
+            },
+          )
         ],
       ),
     );
