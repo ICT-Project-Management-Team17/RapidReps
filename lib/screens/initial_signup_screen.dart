@@ -35,48 +35,76 @@ class _InitialSignUpScreenState extends State<InitialSignUpScreen> {
                 child: Padding(
                   padding: const EdgeInsets.all(25.0),
                   child: Column(
-                    children: const [
-                      Text(
+                    children: [
+                      const Text(
                         "Sign Up",
                         style: TextStyle(
                           fontSize: 36.0,
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 25,
                       ),
-                      CustomSignUpButton(
-                        buttonColour: Color(0xFF009FE3),
+                      CustomButton(
+                        buttonColour: const Color(0xFF009FE3),
                         horizontalPadding: 70,
                         buttonText: 'CDO',
-                        pageRedirect: ConstructionPage(),
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const CDOAgreemantScreen(),
+                            ),
+                          );
+                        },
                       ),
                       SizedBox(
                         height: 25,
                       ),
-                      CustomSignUpButton(
+                      CustomButton(
                         buttonColour: Color(0xFF009B14),
                         horizontalPadding: 60,
                         buttonText: 'Solicitor',
-                        pageRedirect: ConstructionPage(),
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const ConstructionPage(),
+                            ),
+                          );
+                        },
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 25,
                       ),
-                      CustomSignUpButton(
+                      CustomButton(
                         buttonColour: Color(0xFF951B81),
                         horizontalPadding: 10,
                         buttonText: 'Firm Representative',
-                        pageRedirect: ConstructionPage(),
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const ConstructionPage(),
+                            ),
+                          );
+                        },
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 25,
                       ),
-                      CustomSignUpButton(
+                      CustomButton(
                         buttonColour: Color(0xFFE30613),
                         horizontalPadding: 50,
                         buttonText: 'Back',
-                        pageRedirect: ConstructionPage(),
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const ConstructionPage(),
+                            ),
+                          );
+                        },
                       ),
                     ],
                   ),
