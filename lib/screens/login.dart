@@ -10,6 +10,10 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  void _login() {
+    print("Yet to be implemented");
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,51 +43,59 @@ class _LoginScreenState extends State<LoginScreen> {
                       child: Padding(
                         padding: const EdgeInsets.all(25.0),
                         child: Column(
-                          children: const [
-                            Text(
+                          children: [
+                            const Text(
                               "Login",
                               style: TextStyle(
                                 fontSize: 36.0,
                               ),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 30,
                             ),
-                            TextField(
+                            const TextField(
                               decoration: InputDecoration(
                                   hintText: 'Username',
                                   hintStyle: TextStyle(color: Colors.grey)),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 25,
                             ),
-                            TextField(
+                            const TextField(
                               decoration: InputDecoration(
                                   hintText: 'Password',
                                   hintStyle: TextStyle(color: Colors.grey)),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 25,
                             ),
-                            CustomSignUpButton(
+                            CustomButton(
                               buttonColour: Color(0xFF009FE3),
                               horizontalPadding: 70,
                               buttonText: 'Login',
-                              pageRedirect: ConstructionPage(),
+                              onPressed: _login,
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 25,
                             ),
-                            CustomSignUpButton(
+                            CustomButton(
                               buttonColour: Color(0xFF951B81),
                               horizontalPadding: 60,
                               buttonText: 'Sign Up',
-                              pageRedirect: ConstructionPage(),
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        const InitialSignUpScreen(),
+                                  ),
+                                );
+                              },
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 10,
                             ),
-                            TextButton(
+                            const TextButton(
                                 onPressed: null,
                                 child: Text(
                                   'Forgot Password',
