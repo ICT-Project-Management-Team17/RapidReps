@@ -25,8 +25,8 @@ class _AgreemantScreenState extends State<AgreemantScreen> {
         children: <Widget>[
           Container(
             constraints: const BoxConstraints(
-              maxHeight: 300,
-              maxWidth: 300,
+              maxHeight: 150,
+              maxWidth: 150,
             ),
             child: Image(
                 image: AssetImage(
@@ -68,5 +68,4 @@ class _AgreemantScreenState extends State<AgreemantScreen> {
       ),
     );
   }
-
 }
