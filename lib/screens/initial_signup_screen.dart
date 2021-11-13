@@ -108,12 +108,7 @@ class _InitialSignUpScreenState extends State<InitialSignUpScreen> {
                         horizontalPadding: 50,
                         buttonText: 'Back',
                         onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const ConstructionPage(),
-                            ),
-                          );
+                          Navigator.of(context).pop();
                         },
                       ),
                     ],
