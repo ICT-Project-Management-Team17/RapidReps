@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import '../widgets/export.dart';
-import 'package:rapid_reps/utilities/constants.dart';
 import 'export.dart';
 
 class InitialSignUpScreen extends StatefulWidget {
