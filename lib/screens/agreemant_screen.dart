@@ -20,8 +20,14 @@ class _AgreemantScreenState extends State<AgreemantScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back, color: widget.userColour),
+          onPressed: () => Navigator.pop(context, false),
+        ),
+        backgroundColor: Colors.white,
+      ),
       body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           Container(
             constraints: const BoxConstraints(
@@ -58,7 +64,10 @@ class _AgreemantScreenState extends State<AgreemantScreen> {
                     const SizedBox(
                       height: 25,
                     ),
-                    Text(kTerms)
+                    Text(
+                      kTerms,
+                      style: TextStyle(fontSize: 13),
+                    )
                   ],
                 ),
               ),
