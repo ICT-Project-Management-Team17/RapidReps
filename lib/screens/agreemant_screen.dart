@@ -40,42 +40,43 @@ class _AgreemantScreenState extends State<AgreemantScreen> {
               widget.imageLocation,
             )),
           ),
-          Center(
-            child: Container(
-              decoration: BoxDecoration(
-                color: Colors.white,
-                border: Border.all(
-                  color: widget.userColour,
-                  width: 5,
-                ),
-                borderRadius: const BorderRadius.all(
-                  Radius.circular(25.0),
-                ),
+          Container(
+            decoration: BoxDecoration(
+              color: Colors.white,
+              border: Border.all(
+                color: widget.userColour,
+                width: 5,
               ),
-              child: Padding(
-                padding: const EdgeInsets.all(25.0),
-                child: Column(
-                  children: [
-                    const Text(
-                      "Basic Terms",
-                      style: TextStyle(
-                        fontSize: 25.0,
-                      ),
+              borderRadius: const BorderRadius.all(
+                Radius.circular(25.0),
+              ),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.all(25.0),
+              child: Column(
+                children: [
+                  const Text(
+                    "Basic Terms",
+                    style: TextStyle(
+                      fontSize: 25.0,
                     ),
-                    const SizedBox(
-                      height: 25,
-                    ),
-                    Text(
-                      kTerms,
-                      style: TextStyle(fontSize: 13),
-                    ),
-                    FloatingActionButton(
+                  ),
+                  const SizedBox(
+                    height: 25,
+                  ),
+                  Text(
+                    kTerms,
+                    style: TextStyle(fontSize: 13),
+                  ),
+                  Container(
+                    alignment: Alignment.bottomRight,
+                    child: FloatingActionButton(
                       onPressed: () {},
                       child: Icon(Icons.volume_up),
                       backgroundColor: widget.userColour,
-                    )
-                  ],
-                ),
+                    ),
+                  ),
+                ],
               ),
             ),
           ),
