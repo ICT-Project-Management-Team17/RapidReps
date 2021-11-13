@@ -53,23 +53,30 @@ class _InitialSignUpScreenState extends State<InitialSignUpScreen> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => const CDOAgreemantScreen(),
+                              builder: (context) => const AgreemantScreen(
+                                userColour: Color(0xFF009FE3),
+                                imageLocation:
+                                    'assets/images/police officer image.jpg',
+                              ),
                             ),
                           );
                         },
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 25,
                       ),
                       CustomButton(
-                        buttonColour: Color(0xFF009B14),
+                        buttonColour: const Color(0xFF009B14),
                         horizontalPadding: 60,
                         buttonText: 'Solicitor',
                         onPressed: () {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => const ConstructionPage(),
+                              builder: (context) => const AgreemantScreen(
+                                userColour: Color(0xFF009B14),
+                                imageLocation: 'assets/images/lawyer.png',
+                              ),
                             ),
                           );
                         },
@@ -78,14 +85,17 @@ class _InitialSignUpScreenState extends State<InitialSignUpScreen> {
                         height: 25,
                       ),
                       CustomButton(
-                        buttonColour: Color(0xFF951B81),
+                        buttonColour: const Color(0xFF951B81),
                         horizontalPadding: 10,
                         buttonText: 'Firm Representative',
                         onPressed: () {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => const ConstructionPage(),
+                              builder: (context) => const AgreemantScreen(
+                                userColour: Color(0xFF951B81),
+                                imageLocation: 'assets/images/firm.png',
+                              ),
                             ),
                           );
                         },
@@ -94,7 +104,7 @@ class _InitialSignUpScreenState extends State<InitialSignUpScreen> {
                         height: 25,
                       ),
                       CustomButton(
-                        buttonColour: Color(0xFFE30613),
+                        buttonColour: const Color(0xFFE30613),
                         horizontalPadding: 50,
                         buttonText: 'Back',
                         onPressed: () {
