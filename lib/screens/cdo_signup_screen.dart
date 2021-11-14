@@ -14,7 +14,7 @@ class CDOSignUpScreen extends StatefulWidget {
 }
 
 class _CDOSignUpScreenState extends State<CDOSignUpScreen> {
-  late String _policeStation = 'Select a Police Station';
+  late String _policeStation = 'West Wickham Police Office   BR4 0LP';
 
   @override
   Widget build(BuildContext context) {
@@ -109,10 +109,13 @@ class _CDOSignUpScreenState extends State<CDOSignUpScreen> {
                       height: 20,
                     ),
                     DropdownButton<String>(
-                      value: _policeStation,
+                      hint: const Text(
+                        "Select a Police Station",
+                      ),
                       icon: const Icon(
                         Icons.arrow_downward,
                       ),
+                      isExpanded: true,
                       style: const TextStyle(
                         color: Colors.grey,
                       ),
@@ -126,14 +129,12 @@ class _CDOSignUpScreenState extends State<CDOSignUpScreen> {
                           child: Text(value),
                         );
                       }).toList(),
-                      hint: const Text(
-                        "Select a Police Station",
-                      ),
                       onChanged: (String? value) {
                         setState(() {
                           _policeStation = value as String;
                         });
                       },
+                      value: _policeStation,
                     )
                   ],
                 ),
