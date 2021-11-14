@@ -104,12 +104,32 @@ class _AgreemantScreenState extends State<AgreemantScreen> {
             horizontalPadding: 25,
             buttonText: 'Agree & Continue',
             onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const ConstructionPage(),
-                ),
-              );
+              if (widget.userColour == const Color(0xFF009FE3)) {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => CDOSignUpScreen(
+                      userColour: widget.userColour,
+                    ),
+                  ),
+                );
+              } else if (widget.userColour == const Color(0xFF009B14)) {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const ConstructionPage(),
+                  ),
+                  // solicitor sign up form
+                );
+              } else {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const ConstructionPage(),
+                  ),
+                  // firm rep sign up form
+                );
+              }
             },
           )
         ],
