@@ -15,6 +15,7 @@ class SolicitorSignUpScreen extends StatefulWidget {
 
 class _SolicitorSignUpScreenState extends State<SolicitorSignUpScreen> {
   String _firm = 'Firm 1';
+  bool isChecked = false;
 
   @override
   Widget build(BuildContext context) {
@@ -50,7 +51,7 @@ class _SolicitorSignUpScreenState extends State<SolicitorSignUpScreen> {
                           hintStyle: TextStyle(color: Colors.grey)),
                     ),
                     const SizedBox(
-                      height: 15,
+                      height: 10,
                     ),
                     const TextField(
                       decoration: InputDecoration(
@@ -58,7 +59,7 @@ class _SolicitorSignUpScreenState extends State<SolicitorSignUpScreen> {
                           hintStyle: TextStyle(color: Colors.grey)),
                     ),
                     const SizedBox(
-                      height: 15,
+                      height: 10,
                     ),
                     const TextField(
                       decoration: InputDecoration(
@@ -66,7 +67,7 @@ class _SolicitorSignUpScreenState extends State<SolicitorSignUpScreen> {
                           hintStyle: TextStyle(color: Colors.grey)),
                     ),
                     const SizedBox(
-                      height: 15,
+                      height: 10,
                     ),
                     const TextField(
                       decoration: InputDecoration(
@@ -74,7 +75,7 @@ class _SolicitorSignUpScreenState extends State<SolicitorSignUpScreen> {
                           hintStyle: TextStyle(color: Colors.grey)),
                     ),
                     const SizedBox(
-                      height: 15,
+                      height: 10,
                     ),
                     const TextField(
                       decoration: InputDecoration(
@@ -82,7 +83,7 @@ class _SolicitorSignUpScreenState extends State<SolicitorSignUpScreen> {
                           hintStyle: TextStyle(color: Colors.grey)),
                     ),
                     const SizedBox(
-                      height: 15,
+                      height: 10,
                     ),
                     const TextField(
                       decoration: InputDecoration(
@@ -90,7 +91,7 @@ class _SolicitorSignUpScreenState extends State<SolicitorSignUpScreen> {
                           hintStyle: TextStyle(color: Colors.grey)),
                     ),
                     const SizedBox(
-                      height: 15,
+                      height: 10,
                     ),
                     const TextField(
                       decoration: InputDecoration(
@@ -98,7 +99,7 @@ class _SolicitorSignUpScreenState extends State<SolicitorSignUpScreen> {
                           hintStyle: TextStyle(color: Colors.grey)),
                     ),
                     const SizedBox(
-                      height: 15,
+                      height: 10,
                     ),
                     const TextField(
                       decoration: InputDecoration(
@@ -106,32 +107,44 @@ class _SolicitorSignUpScreenState extends State<SolicitorSignUpScreen> {
                           hintStyle: TextStyle(color: Colors.grey)),
                     ),
                     const SizedBox(
-                      height: 15,
+                      height: 10,
                     ),
-                    DropdownButton<String>(
-                      hint: const Text(
-                        "Select a Firm",
-                      ),
-                      icon: const Icon(
-                        Icons.arrow_downward,
-                      ),
-                      isExpanded: true,
-                      style: const TextStyle(
-                        color: Colors.grey,
-                      ),
-                      items: <String>['Firm 1', 'Firm 2', 'Firm 3']
-                          .map<DropdownMenuItem<String>>((String value) {
-                        return DropdownMenuItem(
-                          value: value,
-                          child: Text(value),
-                        );
-                      }).toList(),
-                      onChanged: (String? value) {
+                    CheckboxListTile(
+                      title: const Text('I am a freelance solicitor'),
+                      value: isChecked,
+                      onChanged: (bool? value) {
                         setState(() {
-                          _firm = value as String;
+                          isChecked = value as bool;
                         });
                       },
-                      value: _firm,
+                    ),
+                    Visibility(
+                      visible: !isChecked,
+                      child: DropdownButton<String>(
+                        hint: const Text(
+                          "Select a Firm",
+                        ),
+                        icon: const Icon(
+                          Icons.arrow_downward,
+                        ),
+                        isExpanded: true,
+                        style: const TextStyle(
+                          color: Colors.grey,
+                        ),
+                        items: <String>['Firm 1', 'Firm 2', 'Firm 3']
+                            .map<DropdownMenuItem<String>>((String value) {
+                          return DropdownMenuItem(
+                            value: value,
+                            child: Text(value),
+                          );
+                        }).toList(),
+                        onChanged: (String? value) {
+                          setState(() {
+                            _firm = value as String;
+                          });
+                        },
+                        value: _firm,
+                      ),
                     ),
                     const TextField(
                       decoration: InputDecoration(
