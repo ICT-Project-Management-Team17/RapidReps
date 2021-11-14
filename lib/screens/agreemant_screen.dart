@@ -126,7 +126,8 @@ class _AgreemantScreenState extends State<AgreemantScreen> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => const ConstructionPage(),
+                    builder: (context) =>
+                        FirmRepSignUpScreen(userColour: widget.userColour),
                   ),
                   // firm rep sign up form
                 );
