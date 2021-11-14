@@ -14,6 +14,8 @@ class CDOSignUpScreen extends StatefulWidget {
 }
 
 class _CDOSignUpScreenState extends State<CDOSignUpScreen> {
+  late String _policeStation = 'Select a Police Station';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -41,76 +43,98 @@ class _CDOSignUpScreenState extends State<CDOSignUpScreen> {
               child: Padding(
                 padding: const EdgeInsets.all(25.0),
                 child: Column(
-                  children: const [
-                    TextField(
+                  children: [
+                    const TextField(
                       decoration: InputDecoration(
                           hintText: 'Firstname',
                           hintStyle: TextStyle(color: Colors.grey)),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
-                    TextField(
+                    const TextField(
                       decoration: InputDecoration(
                           hintText: 'Lastname',
                           hintStyle: TextStyle(color: Colors.grey)),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
-                    TextField(
+                    const TextField(
                       decoration: InputDecoration(
                           hintText: 'Mobile Number',
                           hintStyle: TextStyle(color: Colors.grey)),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
-                    TextField(
+                    const TextField(
                       decoration: InputDecoration(
                           hintText: 'Telephone Number',
                           hintStyle: TextStyle(color: Colors.grey)),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
-                    TextField(
+                    const TextField(
                       decoration: InputDecoration(
                           hintText: 'Email',
                           hintStyle: TextStyle(color: Colors.grey)),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
-                    TextField(
+                    const TextField(
                       decoration: InputDecoration(
                           hintText: 'Confirm Email',
                           hintStyle: TextStyle(color: Colors.grey)),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
-                    TextField(
+                    const TextField(
                       decoration: InputDecoration(
                           hintText: 'Password',
                           hintStyle: TextStyle(color: Colors.grey)),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
-                    TextField(
+                    const TextField(
                       decoration: InputDecoration(
                           hintText: 'Confirm Password',
                           hintStyle: TextStyle(color: Colors.grey)),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
-                    TextField(
-                      decoration: InputDecoration(
-                          hintText: 'Select Police Station',
-                          hintStyle: TextStyle(color: Colors.grey)),
-                    ),
+                    DropdownButton<String>(
+                      value: _policeStation,
+                      icon: const Icon(
+                        Icons.arrow_downward,
+                      ),
+                      style: const TextStyle(
+                        color: Colors.grey,
+                      ),
+                      items: <String>[
+                        'West Wickham Police Office   BR4 0LP',
+                        'Croydon Police Station   CR0 6SR',
+                        'Berlin Underwood House   CR20 2XR'
+                      ].map<DropdownMenuItem<String>>((String value) {
+                        return DropdownMenuItem(
+                          value: value,
+                          child: Text(value),
+                        );
+                      }).toList(),
+                      hint: const Text(
+                        "Select a Police Station",
+                      ),
+                      onChanged: (String? value) {
+                        setState(() {
+                          _policeStation = value as String;
+                        });
+                      },
+                    )
                   ],
                 ),
               ),
