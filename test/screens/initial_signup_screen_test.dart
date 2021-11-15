@@ -10,32 +10,91 @@ void main() {
     'Initial Sign Up Screen: ',
     () {
       testWidgets(
-          'When CDO Button is clicked, user is redirected to the CDO agreement screen',
-          (WidgetTester tester) async {
-        final mockObserver = MockNavigatorObserver();
-        await tester.pumpWidget(
-          MaterialApp(
-            home: const InitialSignUpScreen(),
-            navigatorObservers: [mockObserver],
-          ),
-        );
+        'When CDO Button is clicked, user is redirected to the CDO agreement screen',
+        (WidgetTester tester) async {
+          final mockObserver = MockNavigatorObserver();
+          await tester.pumpWidget(
+            MaterialApp(
+              home: const InitialSignUpScreen(),
+              navigatorObservers: [mockObserver],
+            ),
+          );
 
-        await tester.tap(
-          find.text('CDO'),
-        );
-        await tester.pumpAndSettle();
+          await tester.tap(
+            find.text('CDO'),
+          );
+          await tester.pumpAndSettle();
 
-        expect(
-          find.byType(AgreemantScreen),
-          findsOneWidget,
-        );
+          expect(
+            find.byType(AgreemantScreen),
+            findsOneWidget,
+          );
 
-        expect(
-            (tester.firstWidget(find.byType(FloatingActionButton))
-                    as FloatingActionButton)
-                .backgroundColor,
-            const Color(0xFF009FE3));
-      });
+          expect(
+              (tester.firstWidget(find.byType(FloatingActionButton))
+                      as FloatingActionButton)
+                  .backgroundColor,
+              const Color(0xFF009FE3));
+        },
+      );
+
+      testWidgets(
+        'When Solicitor Button is clicked, user is redirected to the Solicitor agreement screen',
+        (WidgetTester tester) async {
+          final mockObserver = MockNavigatorObserver();
+          await tester.pumpWidget(
+            MaterialApp(
+              home: const InitialSignUpScreen(),
+              navigatorObservers: [mockObserver],
+            ),
+          );
+
+          await tester.tap(
+            find.text('Solicitor'),
+          );
+          await tester.pumpAndSettle();
+
+          expect(
+            find.byType(AgreemantScreen),
+            findsOneWidget,
+          );
+
+          expect(
+              (tester.firstWidget(find.byType(FloatingActionButton))
+                      as FloatingActionButton)
+                  .backgroundColor,
+              const Color(0xFF009B14));
+        },
+      );
+
+      testWidgets(
+        'When Firm Rep Button is clicked, user is redirected to the Firm Rep agreement screen',
+        (WidgetTester tester) async {
+          final mockObserver = MockNavigatorObserver();
+          await tester.pumpWidget(
+            MaterialApp(
+              home: const InitialSignUpScreen(),
+              navigatorObservers: [mockObserver],
+            ),
+          );
+
+          await tester.tap(
+            find.text('Firm Representative'),
+          );
+          await tester.pumpAndSettle();
+
+          expect(
+            find.byType(AgreemantScreen),
+            findsOneWidget,
+          );
+
+          expect(
+              (tester.firstWidget(find.byType(FloatingActionButton))
+                      as FloatingActionButton)
+                  .backgroundColor,
+              const Color(0xFF951B81));
+        },
+      );
     },
   );
 }
