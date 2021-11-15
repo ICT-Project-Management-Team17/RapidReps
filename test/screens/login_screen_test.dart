@@ -25,26 +25,27 @@ void main() {
       );
 
       testWidgets(
-          'When Sign Up Button is clicked, user is redirected to Sign Up Page',
-          (WidgetTester tester) async {
-        final mockObserver = MockNavigatorObserver();
-        await tester.pumpWidget(
-          MaterialApp(
-            home: const LoginScreen(),
-            navigatorObservers: [mockObserver],
-          ),
-        );
+        'When Sign Up Button is clicked, user is redirected to Sign Up Page',
+        (WidgetTester tester) async {
+          final mockObserver = MockNavigatorObserver();
+          await tester.pumpWidget(
+            MaterialApp(
+              home: const LoginScreen(),
+              navigatorObservers: [mockObserver],
+            ),
+          );
 
-        await tester.tap(
-          find.text('Sign Up'),
-        );
-        await tester.pumpAndSettle();
+          await tester.tap(
+            find.text('Sign Up'),
+          );
+          await tester.pumpAndSettle();
 
-        expect(
-          find.byType(InitialSignUpScreen),
-          findsOneWidget,
-        );
-      });
+          expect(
+            find.byType(InitialSignUpScreen),
+            findsOneWidget,
+          );
+        },
+      );
     },
   );
 }
