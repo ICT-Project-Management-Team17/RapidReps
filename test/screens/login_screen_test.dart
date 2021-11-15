@@ -40,7 +40,10 @@ void main() {
         );
         await tester.pumpAndSettle();
 
-        expect(find.byType(InitialSignUpScreen), findsOneWidget);
+        expect(
+          find.byType(InitialSignUpScreen),
+          findsOneWidget,
+        );
       });
     },
   );
