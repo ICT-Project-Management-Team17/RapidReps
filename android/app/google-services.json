@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "629684198641",
+    "project_id": "rapidreps-dda19",
+    "storage_bucket": "rapidreps-dda19.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:629684198641:android:32b6698e26ce525ea85d50",
+        "android_client_info": {
+          "package_name": "com.example.rapid_reps"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "629684198641-19s7srq2hgg9fdnht7iqh4vtb1t2gm4m.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.rapid_reps",
+            "certificate_hash": "aa915f46e09ab852a4c4bac1408bb5ff2d6fa5f9"
+          }
+        },
+        {
+          "client_id": "629684198641-qcgcgojan5jhchm0g4noj6il9jmpjvuc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA5TeDbcOGRDAyaeBMvE23pLsVYgiyyGQg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "629684198641-qcgcgojan5jhchm0g4noj6il9jmpjvuc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
