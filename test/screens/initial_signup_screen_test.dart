@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:rapid_reps/screens/export.dart';
+import 'package:rapid_reps/utilities/constants.dart';
 
 class MockNavigatorObserver extends Mock implements NavigatorObserver {}
 
@@ -34,7 +35,7 @@ void main() {
               (tester.firstWidget(find.byType(FloatingActionButton))
                       as FloatingActionButton)
                   .backgroundColor,
-              const Color(0xFF009FE3));
+              kCDOColour);
         },
       );
 
@@ -63,7 +64,7 @@ void main() {
               (tester.firstWidget(find.byType(FloatingActionButton))
                       as FloatingActionButton)
                   .backgroundColor,
-              const Color(0xFF009B14));
+              kSolicitorColour);
         },
       );
 
@@ -92,7 +93,7 @@ void main() {
               (tester.firstWidget(find.byType(FloatingActionButton))
                       as FloatingActionButton)
                   .backgroundColor,
-              const Color(0xFF951B81));
+              kFirmRepColour);
         },
       );
     },
