@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rapid_reps/utilities/constants.dart';
 import '../widgets/export.dart';
 import 'export.dart';
 
@@ -46,15 +47,15 @@ class _InitialSignUpScreenState extends State<InitialSignUpScreen> {
                         height: 25,
                       ),
                       CustomButton(
-                        buttonColour: const Color(0xFF009FE3),
+                        buttonColour: kCDOColour,
                         horizontalPadding: 70,
                         buttonText: 'CDO',
                         onPressed: () {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => const AgreemantScreen(
-                                userColour: Color(0xFF009FE3),
+                              builder: (context) => AgreemantScreen(
+                                userColour: kCDOColour,
                                 imageLocation:
                                     'assets/images/police officer image.jpg',
                               ),
@@ -66,15 +67,15 @@ class _InitialSignUpScreenState extends State<InitialSignUpScreen> {
                         height: 25,
                       ),
                       CustomButton(
-                        buttonColour: const Color(0xFF009B14),
+                        buttonColour: kSolicitorColour,
                         horizontalPadding: 60,
                         buttonText: 'Solicitor',
                         onPressed: () {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => const AgreemantScreen(
-                                userColour: Color(0xFF009B14),
+                              builder: (context) => AgreemantScreen(
+                                userColour: kSolicitorColour,
                                 imageLocation: 'assets/images/lawyer.png',
                               ),
                             ),
@@ -85,15 +86,15 @@ class _InitialSignUpScreenState extends State<InitialSignUpScreen> {
                         height: 25,
                       ),
                       CustomButton(
-                        buttonColour: const Color(0xFF951B81),
+                        buttonColour: kFirmRepColour,
                         horizontalPadding: 10,
                         buttonText: 'Firm Representative',
                         onPressed: () {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => const AgreemantScreen(
-                                userColour: Color(0xFF951B81),
+                              builder: (context) => AgreemantScreen(
+                                userColour: kFirmRepColour,
                                 imageLocation: 'assets/images/firm.png',
                               ),
                             ),
