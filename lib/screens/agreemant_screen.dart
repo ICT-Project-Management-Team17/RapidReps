@@ -105,7 +105,7 @@ class _AgreemantScreenState extends State<AgreemantScreen> {
               horizontalPadding: 25,
               buttonText: 'Agree & Continue',
               onPressed: () {
-                if (widget.userColour == const Color(0xFF009FE3)) {
+                if (widget.userColour == kCDOColour) {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
@@ -114,7 +114,7 @@ class _AgreemantScreenState extends State<AgreemantScreen> {
                       ),
                     ),
                   );
-                } else if (widget.userColour == const Color(0xFF009B14)) {
+                } else if (widget.userColour == kSolicitorColour) {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
