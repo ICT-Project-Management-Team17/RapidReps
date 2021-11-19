@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:rapid_reps/utilities/custom_tts.dart';
 import '../utilities/constants.dart';
 import 'export.dart';
 import '../widgets/export.dart';
-import 'package:flutter_tts/flutter_tts.dart';
 
 class AgreemantScreen extends StatefulWidget {
   final Color userColour;
@@ -18,19 +18,7 @@ class AgreemantScreen extends StatefulWidget {
 
 class _AgreemantScreenState extends State<AgreemantScreen> {
   var widgetList = [];
-  bool isSpeaking = false;
-  final FlutterTts flutterTts = FlutterTts();
-
-  void speak() async {
-    isSpeaking = true;
-    await flutterTts.setLanguage("en-GB");
-    await flutterTts.speak(kTerms);
-  }
-
-  void stop() async {
-    await flutterTts.stop();
-    isSpeaking = false;
-  }
+  final CustomTTS flutterTts = CustomTTS();
 
   @override
   Widget build(BuildContext context) {
@@ -96,11 +84,14 @@ class _AgreemantScreenState extends State<AgreemantScreen> {
                         child: FloatingActionButton(
                           onPressed: () {
                             setState(() {
-                              isSpeaking ? stop() : speak();
+                              flutterTts.getSpeaking()
+                                  ? flutterTts.stop()
+                                  : flutterTts.speak(kTerms);
                             });
                           },
-                          child:
-                              Icon(isSpeaking ? Icons.stop : Icons.volume_up),
+                          child: Icon(flutterTts.getSpeaking()
+                              ? Icons.stop
+                              : Icons.volume_up),
                           backgroundColor: widget.userColour,
                         ),
                       ),
