@@ -275,7 +275,17 @@ class _FirmRepSignUpScreenState extends State<FirmRepSignUpScreen> {
             .createUserWithEmailAndPassword(email: email, password: password)
             .then((value) => {createUser()});
       } on FirebaseAuthException catch (error) {
-        Fluttertoast.showToast(msg: error.code);
+        errorText = error.code;
+        if (errorText == 'email-already-in-use') {
+          errorText = 'User with this Email already exists';
+        }
+        Fluttertoast.showToast(
+            msg: errorText!,
+            gravity: ToastGravity.CENTER,
+            timeInSecForIosWeb: 3,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 16.0);
       }
     }
   }
