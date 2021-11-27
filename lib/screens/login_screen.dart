@@ -6,11 +6,8 @@ import 'package:rapid_reps/models/cdo_model.dart';
 import 'package:rapid_reps/models/firm_rep_model.dart';
 import 'package:rapid_reps/models/solicitor.dart';
 import 'package:rapid_reps/models/user_model.dart';
-import 'package:rapid_reps/screens/cdo_dashboard.dart';
 import '../widgets/export.dart';
-import 'Solicitor_dashboard.dart';
 import 'export.dart';
-import 'firm_rep_dashboard.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
