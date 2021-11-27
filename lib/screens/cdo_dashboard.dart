@@ -5,7 +5,6 @@ import '../models/export.dart';
 import 'export.dart';
 import '../utilities/export.dart';
 import 'package:bottom_navy_bar/bottom_navy_bar.dart';
-import '../widgets/export.dart';
 
 class CDODashboard extends StatefulWidget {
   final CDOModel currentUser;
@@ -49,6 +48,9 @@ class _CDODashboardState extends State<CDODashboard> {
                   padding: const EdgeInsets.all(25.0),
                   child: Column(
                     children: [
+                      const Text(
+                        "Job Page",
+                      ),
                       // when retreiving jobs, make them populate here?
                       Container(
                         alignment: Alignment.bottomRight,
@@ -167,7 +169,7 @@ class _CDODashboardState extends State<CDODashboard> {
               Icons.apps,
             ),
             title: const Text(
-              'Jobs',
+              'Jobs Issued',
             ),
             activeColor: Colors.blue,
             textAlign: TextAlign.center,
