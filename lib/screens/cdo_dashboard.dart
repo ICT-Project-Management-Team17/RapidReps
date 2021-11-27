@@ -5,6 +5,7 @@ import 'package:rapid_reps/models/user_model.dart';
 import 'package:rapid_reps/screens/export.dart';
 import 'package:rapid_reps/utilities/constants.dart';
 import 'package:bottom_navy_bar/bottom_navy_bar.dart';
+import '../utilities/string_extension.dart';
 
 class CDODashboard extends StatefulWidget {
   final userModel currentUser;
@@ -54,7 +55,7 @@ class _CDODashboardState extends State<CDODashboard> {
                       height: 5,
                     ),
                     Text(
-                      "${widget.currentUser.firstName} ${widget.currentUser.lastName}",
+                      "${widget.currentUser.firstName?.capitalize()} ${widget.currentUser.lastName?.capitalize()}",
                       style: const TextStyle(
                         color: Colors.black,
                         fontWeight: FontWeight.w500,
@@ -89,7 +90,6 @@ class _CDODashboardState extends State<CDODashboard> {
             Center(
                 child: Column(
               children: [
-                const Text("Logout"),
                 const SizedBox(
                   height: 15,
                 ),
