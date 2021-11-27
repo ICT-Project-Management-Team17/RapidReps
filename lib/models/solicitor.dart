@@ -1,26 +1,29 @@
-class SolicitorModel {
-  String? uid;
-  String? firstName;
-  String? lastName;
-  String? mobileNumber;
-  String? telephoneNumber;
-  String? email;
-  String? userType;
+import 'package:rapid_reps/models/user_model.dart';
+
+class SolicitorModel extends userModel {
   bool? freelancer;
   String? firm;
   String? experience;
 
   SolicitorModel(
-      {this.uid,
-      this.firstName,
-      this.lastName,
-      this.mobileNumber,
-      this.telephoneNumber,
-      this.email,
-      this.userType,
+      {uid,
+      firstName,
+      lastName,
+      mobileNumber,
+      telephoneNumber,
+      email,
+      userType,
       this.firm,
       this.freelancer,
-      this.experience});
+      this.experience})
+      : super(
+            uid: uid,
+            firstName: firstName,
+            lastName: lastName,
+            mobileNumber: mobileNumber,
+            telephoneNumber: telephoneNumber,
+            email: email,
+            userType: userType);
 
   factory SolicitorModel.fromMap(map) {
     return SolicitorModel(
@@ -36,6 +39,7 @@ class SolicitorModel {
         userType: map['userType']);
   }
 
+  @override
   Map<String, dynamic> toMap() {
     return {
       'uid': uid,
