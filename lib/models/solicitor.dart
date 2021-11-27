@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import 'export.dart';
 
 class SolicitorModel extends userModel {
@@ -15,21 +16,34 @@ class SolicitorModel extends userModel {
   String? email;
   @override
   String? userType;
+=======
+import 'package:rapid_reps/models/user_model.dart';
+
+class SolicitorModel extends userModel {
+>>>>>>> 0881e475b26e5fed32621c9d01b9e5751464a549
   bool? freelancer;
   String? firm;
   String? experience;
 
   SolicitorModel(
-      {this.uid,
-      this.firstName,
-      this.lastName,
-      this.mobileNumber,
-      this.telephoneNumber,
-      this.email,
-      this.userType,
+      {uid,
+      firstName,
+      lastName,
+      mobileNumber,
+      telephoneNumber,
+      email,
+      userType,
       this.firm,
       this.freelancer,
-      this.experience});
+      this.experience})
+      : super(
+            uid: uid,
+            firstName: firstName,
+            lastName: lastName,
+            mobileNumber: mobileNumber,
+            telephoneNumber: telephoneNumber,
+            email: email,
+            userType: userType);
 
   factory SolicitorModel.fromMap(map) {
     return SolicitorModel(

@@ -1,14 +1,20 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+<<<<<<< HEAD
 import '../models/export.dart';
 import 'export.dart';
 import '../utilities/export.dart';
 import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import '../widgets/export.dart';
+=======
+import 'package:rapid_reps/models/cdo_model.dart';
+import 'package:rapid_reps/screens/export.dart';
+import 'package:rapid_reps/utilities/constants.dart';
+>>>>>>> 0881e475b26e5fed32621c9d01b9e5751464a549
 
 class CDODashboard extends StatefulWidget {
-  final userModel currentUser;
+  final CDOModel currentUser;
 
   const CDODashboard({Key? key, required this.currentUser}) : super(key: key);
 

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import 'export.dart';
 
 class FirmRep extends userModel{
@@ -15,18 +16,30 @@ class FirmRep extends userModel{
   String? email;
   @override
   String? userType;
+=======
+import 'package:rapid_reps/models/user_model.dart';
+
+class FirmRep extends userModel {
+>>>>>>> 0881e475b26e5fed32621c9d01b9e5751464a549
   String? firm;
 
   FirmRep({
-    this.uid,
-    this.firstName,
-    this.lastName,
-    this.mobileNumber,
-    this.telephoneNumber,
-    this.email,
-    this.userType,
+    uid,
+    firstName,
+    lastName,
+    mobileNumber,
+    telephoneNumber,
+    email,
+    userType,
     this.firm,
-  });
+  }) : super(
+            uid: uid,
+            firstName: firstName,
+            lastName: lastName,
+            mobileNumber: mobileNumber,
+            telephoneNumber: telephoneNumber,
+            email: email,
+            userType: userType);
 
   factory FirmRep.fromMap(map) {
     return FirmRep(
