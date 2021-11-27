@@ -2,10 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:rapid_reps/models/cdo_model.dart';
-import 'package:rapid_reps/models/firm_rep_model.dart';
-import 'package:rapid_reps/models/solicitor.dart';
-import 'package:rapid_reps/models/user_model.dart';
+import '../models/export.dart';
 import '../widgets/export.dart';
 import 'export.dart';
 
@@ -184,12 +181,14 @@ class _LoginScreenState extends State<LoginScreen> {
                       .then((curUser) {
                     String userType = curUser.data()!['userType'];
                     if (userType == 'CDO') {
+
                       CDOModel currentUser = CDOModel.fromMap(curUser.data());
 
                       Navigator.of(context).pushReplacement(MaterialPageRoute(
                           builder: (context) =>
                               CDODashboard(currentUser: currentUser)));
                     } else if (userType == 'Solicitor') {
+
                       SolicitorModel currentUser =
                           SolicitorModel.fromMap(curUser.data());
                       Navigator.of(context).pushReplacement(MaterialPageRoute(
