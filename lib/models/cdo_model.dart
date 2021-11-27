@@ -1,26 +1,6 @@
-<<<<<<< HEAD
 import 'export.dart';
 
 class CDOModel extends userModel {
-  @override
-  String? uid;
-  @override
-  String? firstName;
-  @override
-  String? lastName;
-  @override
-  String? mobileNumber;
-  @override
-  String? telephoneNumber;
-  @override
-  String? email;
-  @override
-  String? userType;
-=======
-import 'package:rapid_reps/models/user_model.dart';
-
-class CDOModel extends userModel {
->>>>>>> 0881e475b26e5fed32621c9d01b9e5751464a549
   String? policeStation;
 
   CDOModel({

@@ -2,14 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-<<<<<<< HEAD
 import '../models/export.dart';
-=======
-import 'package:rapid_reps/models/cdo_model.dart';
-import 'package:rapid_reps/models/firm_rep_model.dart';
-import 'package:rapid_reps/models/solicitor.dart';
-import 'package:rapid_reps/models/user_model.dart';
->>>>>>> 0881e475b26e5fed32621c9d01b9e5751464a549
 import '../widgets/export.dart';
 import 'export.dart';
 
@@ -188,31 +181,21 @@ class _LoginScreenState extends State<LoginScreen> {
                       .then((curUser) {
                     String userType = curUser.data()!['userType'];
                     if (userType == 'CDO') {
-<<<<<<< HEAD
-                      currentUser = CDOModel.fromMap(curUser.data());
-=======
+
                       CDOModel currentUser = CDOModel.fromMap(curUser.data());
 
->>>>>>> 0881e475b26e5fed32621c9d01b9e5751464a549
                       Navigator.of(context).pushReplacement(MaterialPageRoute(
                           builder: (context) =>
                               CDODashboard(currentUser: currentUser)));
                     } else if (userType == 'Solicitor') {
-<<<<<<< HEAD
-                      currentUser = SolicitorModel.fromMap(curUser.data());
-=======
+
                       SolicitorModel currentUser =
                           SolicitorModel.fromMap(curUser.data());
->>>>>>> 0881e475b26e5fed32621c9d01b9e5751464a549
                       Navigator.of(context).pushReplacement(MaterialPageRoute(
                           builder: (context) =>
                               SolicitorDashboard(currentUser: currentUser)));
                     } else if (userType == 'Firm Rep') {
-<<<<<<< HEAD
-                      currentUser = FirmRep.fromMap(curUser.data());
-=======
                       FirmRep currentUser = FirmRep.fromMap(curUser.data());
->>>>>>> 0881e475b26e5fed32621c9d01b9e5751464a549
                       Navigator.of(context).pushReplacement(MaterialPageRoute(
                           builder: (context) =>
                               FirmRepDashboard(currentUser: currentUser)));

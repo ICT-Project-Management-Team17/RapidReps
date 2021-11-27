@@ -1,17 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-<<<<<<< HEAD
 import '../models/export.dart';
 import 'export.dart';
 import '../utilities/export.dart';
 import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import '../widgets/export.dart';
-=======
-import 'package:rapid_reps/models/cdo_model.dart';
-import 'package:rapid_reps/screens/export.dart';
-import 'package:rapid_reps/utilities/constants.dart';
->>>>>>> 0881e475b26e5fed32621c9d01b9e5751464a549
 
 class CDODashboard extends StatefulWidget {
   final CDOModel currentUser;
@@ -97,6 +91,26 @@ class _CDODashboardState extends State<CDODashboard> {
                         height: 25,
                       ),
                       Text(
+                        "${widget.currentUser.policeStation}",
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(
+                          color: Colors.black,
+                          fontWeight: FontWeight.w500,
+                          fontSize: 32,
+                        ),
+                      ),
+                      SizedBox(
+                        height: mobileNumber != null ? 25 : 0,
+                      ),
+                      getMobileNumber(),
+                      SizedBox(
+                        height: mobileNumber != null ? 25 : 0,
+                      ),
+                      getTelephoneNumber(),
+                      SizedBox(
+                        height: telephoneNumber != null ? 25 : 0,
+                      ),
+                      Text(
                         "${widget.currentUser.email}",
                         style: const TextStyle(
                           color: Colors.black,
@@ -104,14 +118,6 @@ class _CDODashboardState extends State<CDODashboard> {
                           fontSize: 32,
                         ),
                       ),
-                      const SizedBox(
-                        height: 25,
-                      ),
-                      getMobileNumber(),
-                      const SizedBox(
-                        height: 25,
-                      ),
-                      getTelephoneNumber(),
                       const SizedBox(
                         height: 25,
                       ),
