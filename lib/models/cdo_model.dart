@@ -1,23 +1,25 @@
-class CDOModel {
-  String? uid;
-  String? firstName;
-  String? lastName;
-  String? mobileNumber;
-  String? telephoneNumber;
-  String? email;
-  String? userType;
+import 'package:rapid_reps/models/user_model.dart';
+
+class CDOModel extends userModel {
   String? policeStation;
 
   CDOModel({
-    this.uid,
-    this.firstName,
-    this.lastName,
-    this.mobileNumber,
-    this.telephoneNumber,
-    this.email,
-    this.userType,
+    uid,
+    firstName,
+    lastName,
+    mobileNumber,
+    telephoneNumber,
+    email,
+    userType,
     this.policeStation,
-  });
+  }) : super(
+            uid: uid,
+            firstName: firstName,
+            lastName: lastName,
+            mobileNumber: mobileNumber,
+            telephoneNumber: telephoneNumber,
+            email: email,
+            userType: userType);
 
   factory CDOModel.fromMap(map) {
     return CDOModel(
@@ -32,6 +34,7 @@ class CDOModel {
     );
   }
 
+  @override
   Map<String, dynamic> toMap() {
     return {
       'uid': uid,
@@ -40,7 +43,7 @@ class CDOModel {
       'mobileNumber': mobileNumber,
       'telephoneNumber': telephoneNumber,
       'email': email,
-      'polceStation': policeStation,
+      'policeStation': policeStation,
       'userType': userType
     };
   }
