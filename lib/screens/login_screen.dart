@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:rapid_reps/models/user_model.dart';
+import 'package:rapid_reps/models/export.dart';
 import 'package:rapid_reps/screens/cdo_dashboard.dart';
 import '../widgets/export.dart';
 import 'Solicitor_dashboard.dart';
@@ -183,17 +183,17 @@ class _LoginScreenState extends State<LoginScreen> {
                       .then((curUser) {
                     String userType = curUser.data()!['userType'];
                     if (userType == 'CDO') {
-                      currentUser = userModel.fromMap(curUser.data());
+                      currentUser = CDOModel.fromMap(curUser.data());
                       Navigator.of(context).pushReplacement(MaterialPageRoute(
                           builder: (context) =>
                               CDODashboard(currentUser: currentUser)));
                     } else if (userType == 'Solicitor') {
-                      currentUser = userModel.fromMap(curUser.data());
+                      currentUser = SolicitorModel.fromMap(curUser.data());
                       Navigator.of(context).pushReplacement(MaterialPageRoute(
                           builder: (context) =>
                               SolicitorDashboard(currentUser: currentUser)));
                     } else if (userType == 'Firm Rep') {
-                      currentUser = userModel.fromMap(curUser.data());
+                      currentUser = FirmRep.fromMap(curUser.data());
                       Navigator.of(context).pushReplacement(MaterialPageRoute(
                           builder: (context) =>
                               FirmRepDashboard(currentUser: currentUser)));

@@ -1,4 +1,6 @@
-class FirmRep {
+import 'package:rapid_reps/models/user_model.dart';
+
+class FirmRep extends userModel{
   String? uid;
   String? firstName;
   String? lastName;

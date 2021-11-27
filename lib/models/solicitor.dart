@@ -1,4 +1,6 @@
-class SolicitorModel {
+import 'package:rapid_reps/models/user_model.dart';
+
+class SolicitorModel extends userModel{
   String? uid;
   String? firstName;
   String? lastName;

@@ -1,4 +1,6 @@
-class CDOModel {
+import 'package:rapid_reps/models/user_model.dart';
+
+class CDOModel extends userModel{
   String? uid;
   String? firstName;
   String? lastName;
