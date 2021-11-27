@@ -2,12 +2,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:rapid_reps/models/export.dart';
-import 'package:rapid_reps/screens/cdo_dashboard.dart';
+import '../models/export.dart';
 import '../widgets/export.dart';
-import 'Solicitor_dashboard.dart';
 import 'export.dart';
-import 'firm_rep_dashboard.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);

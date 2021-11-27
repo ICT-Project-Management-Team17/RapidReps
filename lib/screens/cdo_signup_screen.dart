@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:rapid_reps/models/cdo_model.dart';
+import '../models/export.dart';
 import 'export.dart';
 import '../widgets/export.dart';
 

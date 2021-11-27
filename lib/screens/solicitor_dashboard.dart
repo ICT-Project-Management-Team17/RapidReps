@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
 import 'package:rapid_reps/models/user_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:rapid_reps/screens/export.dart';
-import 'package:rapid_reps/utilities/constants.dart';
+import 'export.dart';
+import '../utilities/export.dart';
 
 class SolicitorDashboard extends StatefulWidget {
   final userModel currentUser;

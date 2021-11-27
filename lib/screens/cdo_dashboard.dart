@@ -1,11 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:rapid_reps/models/user_model.dart';
-import 'package:rapid_reps/screens/export.dart';
-import 'package:rapid_reps/utilities/constants.dart';
+import '../models/export.dart';
+import 'export.dart';
+import '../utilities/export.dart';
 import 'package:bottom_navy_bar/bottom_navy_bar.dart';
-import '../utilities/string_extension.dart';
+import '../widgets/export.dart';
 
 class CDODashboard extends StatefulWidget {
   final userModel currentUser;
@@ -19,6 +19,8 @@ class CDODashboard extends StatefulWidget {
 class _CDODashboardState extends State<CDODashboard> {
   int _currentIndex = 0;
   late PageController _pageController;
+  late String? mobileNumber = widget.currentUser.mobileNumber;
+  late String? telephoneNumber = widget.currentUser.telephoneNumber;
 
   @override
   void initState() {
@@ -41,66 +43,107 @@ class _CDODashboardState extends State<CDODashboard> {
             setState(() => _currentIndex = index);
           },
           children: <Widget>[
-            const Center(
-              child: Text("Jobs Page"),
-            ),
-            Center(
+            SingleChildScrollView(
               child: Padding(
-                padding: const EdgeInsets.all(25),
+                padding: const EdgeInsets.all(25.0),
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    const SizedBox(
-                      height: 5,
-                    ),
-                    Text(
-                      "${widget.currentUser.firstName?.capitalize()} ${widget.currentUser.lastName?.capitalize()}",
-                      style: const TextStyle(
-                        color: Colors.black,
-                        fontWeight: FontWeight.w500,
-                        fontSize: 32,
-                      ),
-                    ),
-                    Text(
-                      "${widget.currentUser.email}",
-                      style: const TextStyle(
-                        color: Colors.black,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                    Text(
-                      "${widget.currentUser.mobileNumber}",
-                      style: const TextStyle(
-                        color: Colors.black,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                    Text(
-                      "${widget.currentUser.telephoneNumber}",
-                      style: const TextStyle(
-                        color: Colors.black,
-                        fontWeight: FontWeight.w500,
+                    // when retreiving jobs, make them populate here?
+                    Container(
+                      alignment: Alignment.bottomRight,
+                      child: FloatingActionButton(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const ConstructionPage(),
+                            ),
+                          );
+                        },
+                        child: const Icon(Icons.add),
+                        backgroundColor: kCDOColour,
                       ),
                     ),
                   ],
                 ),
               ),
             ),
-            Center(
-                child: Column(
-              children: [
-                const SizedBox(
-                  height: 15,
+            SingleChildScrollView(
+              child: Center(
+                child: Padding(
+                  padding: const EdgeInsets.all(25),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      const SizedBox(
+                        height: 25,
+                      ),
+                      Text(
+                        "${widget.currentUser.firstName?.capitalize()} ${widget.currentUser.lastName?.capitalize()}",
+                        style: const TextStyle(
+                          color: Colors.black,
+                          fontWeight: FontWeight.w500,
+                          fontSize: 32,
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 25,
+                      ),
+                      Text(
+                        "${widget.currentUser.email}",
+                        style: const TextStyle(
+                          color: Colors.black,
+                          fontWeight: FontWeight.w500,
+                          fontSize: 32,
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 25,
+                      ),
+                      getMobileNumber(),
+                      const SizedBox(
+                        height: 25,
+                      ),
+                      getTelephoneNumber(),
+                      const SizedBox(
+                        height: 25,
+                      ),
+                      CustomButton(
+                        buttonColour: kCDOColour,
+                        horizontalPadding: 60,
+                        buttonText: 'Edit',
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const ConstructionPage(),
+                            ),
+                          );
+                        },
+                      ),
+                    ],
+                  ),
                 ),
-                ActionChip(
-                  label: const Text("Logout"),
-                  onPressed: () {
-                    logout(context);
-                  },
+              ),
+            ),
+            SingleChildScrollView(
+              child: Center(
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    children: [
+                      ActionChip(
+                        label: const Text("Logout"),
+                        onPressed: () {
+                          logout(context);
+                        },
+                      ),
+                    ],
+                  ),
                 ),
-              ],
-            )),
+              ),
+            ),
           ],
         ),
       ),
@@ -157,5 +200,31 @@ class _CDODashboardState extends State<CDODashboard> {
     await FirebaseAuth.instance.signOut();
     Navigator.of(context).pushReplacement(
         MaterialPageRoute(builder: (context) => const LoginScreen()));
+  }
+
+  getMobileNumber() {
+    if (mobileNumber != null) {
+      return Text(
+        "$mobileNumber",
+        style: const TextStyle(
+          color: Colors.black,
+          fontWeight: FontWeight.w500,
+          fontSize: 32,
+        ),
+      );
+    }
+  }
+
+  getTelephoneNumber() {
+    if (telephoneNumber != null) {
+      return Text(
+        "$telephoneNumber",
+        style: const TextStyle(
+          color: Colors.black,
+          fontWeight: FontWeight.w500,
+          fontSize: 32,
+        ),
+      );
+    }
   }
 }
