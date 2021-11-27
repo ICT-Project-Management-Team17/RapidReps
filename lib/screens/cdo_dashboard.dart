@@ -82,13 +82,6 @@ class _CDODashboardState extends State<CDODashboard> {
                         fontWeight: FontWeight.w500,
                       ),
                     ),
-                    Text(
-                      "${widget.currentUser.policeStation}",
-                      style: const TextStyle(
-                        color: Colors.black,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
                   ],
                 ),
               ),

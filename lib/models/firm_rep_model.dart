@@ -1,12 +1,19 @@
 import 'package:rapid_reps/models/user_model.dart';
 
 class FirmRep extends userModel{
+  @override
   String? uid;
+  @override
   String? firstName;
+  @override
   String? lastName;
+  @override
   String? mobileNumber;
+  @override
   String? telephoneNumber;
+  @override
   String? email;
+  @override
   String? userType;
   String? firm;
 
@@ -34,6 +41,7 @@ class FirmRep extends userModel{
     );
   }
 
+  @override
   Map<String, dynamic> toMap() {
     return {
       'uid': uid,

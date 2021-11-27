@@ -1,12 +1,19 @@
 import 'package:rapid_reps/models/user_model.dart';
 
-class SolicitorModel extends userModel{
+class SolicitorModel extends userModel {
+  @override
   String? uid;
+  @override
   String? firstName;
+  @override
   String? lastName;
+  @override
   String? mobileNumber;
+  @override
   String? telephoneNumber;
+  @override
   String? email;
+  @override
   String? userType;
   bool? freelancer;
   String? firm;
@@ -38,6 +45,7 @@ class SolicitorModel extends userModel{
         userType: map['userType']);
   }
 
+  @override
   Map<String, dynamic> toMap() {
     return {
       'uid': uid,

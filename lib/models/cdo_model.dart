@@ -1,12 +1,19 @@
 import 'package:rapid_reps/models/user_model.dart';
 
-class CDOModel extends userModel{
+class CDOModel extends userModel {
+  @override
   String? uid;
+  @override
   String? firstName;
+  @override
   String? lastName;
+  @override
   String? mobileNumber;
+  @override
   String? telephoneNumber;
+  @override
   String? email;
+  @override
   String? userType;
   String? policeStation;
 
@@ -34,6 +41,7 @@ class CDOModel extends userModel{
     );
   }
 
+  @override
   Map<String, dynamic> toMap() {
     return {
       'uid': uid,
