@@ -43,33 +43,35 @@ class _CDODashboardState extends State<CDODashboard> {
             setState(() => _currentIndex = index);
           },
           children: <Widget>[
-            SingleChildScrollView(
-              child: Padding(
-                padding: const EdgeInsets.all(25.0),
-                child: Column(
-                  children: [
-                    // when retreiving jobs, make them populate here?
-                    Container(
-                      alignment: Alignment.bottomRight,
-                      child: FloatingActionButton(
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const ConstructionPage(),
-                            ),
-                          );
-                        },
-                        child: const Icon(Icons.add),
-                        backgroundColor: kCDOColour,
+            Center(
+              child: SingleChildScrollView(
+                child: Padding(
+                  padding: const EdgeInsets.all(25.0),
+                  child: Column(
+                    children: [
+                      // when retreiving jobs, make them populate here?
+                      Container(
+                        alignment: Alignment.bottomRight,
+                        child: FloatingActionButton(
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const ConstructionPage(),
+                              ),
+                            );
+                          },
+                          child: const Icon(Icons.add),
+                          backgroundColor: kCDOColour,
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             ),
-            SingleChildScrollView(
-              child: Center(
+            Center(
+              child: SingleChildScrollView(
                 child: Padding(
                   padding: const EdgeInsets.all(25),
                   child: Column(
@@ -119,37 +121,24 @@ class _CDODashboardState extends State<CDODashboard> {
                         ),
                       ),
                       const SizedBox(
-                        height: 25,
+                        height: 50,
                       ),
-                      CustomButton(
-                        buttonColour: kCDOColour,
-                        horizontalPadding: 60,
-                        buttonText: 'Edit',
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const ConstructionPage(),
-                            ),
-                          );
-                        },
+                      customIconButton(
+                        context,
+                        label: 'Edit',
+                        backgroundColour: kCDOColour,
+                        horizontalPadding: 35,
+                        icon: Icons.edit,
                       ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-            SingleChildScrollView(
-              child: Center(
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Column(
-                    children: [
-                      ActionChip(
-                        label: const Text("Logout"),
-                        onPressed: () {
-                          logout(context);
-                        },
+                      const SizedBox(
+                        height: 50,
+                      ),
+                      customIconButton(
+                        context,
+                        label: 'Logout',
+                        backgroundColour: Colors.red,
+                        horizontalPadding: 25,
+                        icon: Icons.logout,
                       ),
                     ],
                   ),
@@ -193,17 +182,35 @@ class _CDODashboardState extends State<CDODashboard> {
             activeColor: Colors.purpleAccent,
             textAlign: TextAlign.center,
           ),
-          BottomNavyBarItem(
-            icon: const Icon(
-              Icons.logout,
-            ),
-            title: const Text(
-              'Logout',
-            ),
-            activeColor: Colors.red,
-            textAlign: TextAlign.center,
-          ),
         ],
+      ),
+    );
+  }
+
+  TextButton customIconButton(
+    BuildContext context, {
+    required String label,
+    required Color backgroundColour,
+    required double horizontalPadding,
+    required IconData icon,
+  }) {
+    return TextButton.icon(
+      onPressed: () {
+        logout(context);
+      },
+      icon: Icon(icon),
+      label: Text(label),
+      style: TextButton.styleFrom(
+        primary: Colors.white,
+        backgroundColor: backgroundColour,
+        textStyle: const TextStyle(fontSize: 20),
+        padding: EdgeInsets.symmetric(
+          horizontal: horizontalPadding,
+          vertical: 10,
+        ),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(25.0),
+        ),
       ),
     );
   }
