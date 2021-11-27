@@ -52,22 +52,7 @@ class _SolicitorDashboardState extends State<SolicitorDashboard> {
                   padding: const EdgeInsets.all(25.0),
                   child: Column(
                     children: [
-                      // when retreiving jobs, make them populate here?
-                      Container(
-                        alignment: Alignment.bottomRight,
-                        child: FloatingActionButton(
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => const ConstructionPage(),
-                              ),
-                            );
-                          },
-                          child: const Icon(Icons.add),
-                          backgroundColor: kCDOColour,
-                        ),
-                      ),
+                      // widget goes here, need to know which one the team wants to go with for the dashboard
                     ],
                   ),
                 ),
