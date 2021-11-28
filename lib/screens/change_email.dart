@@ -4,10 +4,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:rapid_reps/screens/export.dart';
 import '../widgets/export.dart';
-import '../utilities/export.dart';
 
 class ChangeEmail extends StatefulWidget {
-  const ChangeEmail({Key? key}) : super(key: key);
+  final Color userColor;
+  const ChangeEmail({Key? key, required this.userColor}) : super(key: key);
 
   @override
   _ChangeEmailState createState() => _ChangeEmailState();
@@ -28,7 +28,7 @@ class _ChangeEmailState extends State<ChangeEmail> {
       appBar: AppBar(
         title: const Text('Change Email'),
         centerTitle: true,
-        backgroundColor: kCDOColour,
+        backgroundColor: widget.userColor,
       ),
       body: Center(
         child: SingleChildScrollView(
@@ -140,7 +140,7 @@ class _ChangeEmailState extends State<ChangeEmail> {
                 height: 20,
               ),
               CustomButton(
-                buttonColour: kCDOColour,
+                buttonColour: widget.userColor,
                 horizontalPadding: 25,
                 buttonText: 'Submit',
                 onPressed: () {

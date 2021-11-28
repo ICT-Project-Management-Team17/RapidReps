@@ -184,7 +184,9 @@ class _SolicitorDashboardState extends State<SolicitorDashboard> {
                         onPressed: () => Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => const ConstructionPage(),
+                            builder: (context) => ChangeEmail(
+                              userColor: kSolicitorColour,
+                            ),
                           ),
                         ),
                       ),
@@ -200,7 +202,9 @@ class _SolicitorDashboardState extends State<SolicitorDashboard> {
                         onPressed: () => Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => const ConstructionPage(),
+                            builder: (context) => ChangePassword(
+                              userColour: kSolicitorColour,
+                            ),
                           ),
                         ),
                       ),

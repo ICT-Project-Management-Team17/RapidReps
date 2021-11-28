@@ -167,7 +167,9 @@ class _CDODashboardState extends State<CDODashboard> {
                         onPressed: () => Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => const ChangeEmail(),
+                            builder: (context) => ChangeEmail(
+                              userColor: kCDOColour,
+                            ),
                           ),
                         ),
                       ),
@@ -183,7 +185,9 @@ class _CDODashboardState extends State<CDODashboard> {
                         onPressed: () => Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => const ChangePassword(),
+                            builder: (context) => ChangePassword(
+                              userColour: kCDOColour,
+                            ),
                           ),
                         ),
                       ),

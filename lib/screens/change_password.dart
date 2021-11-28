@@ -6,7 +6,8 @@ import '../widgets/export.dart';
 import '../utilities/export.dart';
 
 class ChangePassword extends StatefulWidget {
-  const ChangePassword({Key? key}) : super(key: key);
+  final Color userColour;
+  const ChangePassword({Key? key, required this.userColour}) : super(key: key);
 
   @override
   _ChangePasswordState createState() => _ChangePasswordState();
