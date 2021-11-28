@@ -355,7 +355,9 @@ class _SolicitorSignUpScreenState extends State<SolicitorSignUpScreen> {
         .doc(user.uid)
         .set(userModel.toMap());
 
+    user.sendEmailVerification();
+
     Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (context) => const ConstructionPage()));
+        MaterialPageRoute(builder: (context) => VerifyUser(email: user.email)));
   }
 }

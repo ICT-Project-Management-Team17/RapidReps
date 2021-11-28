@@ -173,34 +173,47 @@ class _LoginScreenState extends State<LoginScreen> {
             .then((userID) => {
                   //currentUser = userModel(),
                   user = FirebaseAuth.instance.currentUser,
-                  // user = _auth.currentUser,
-                  FirebaseFirestore.instance
-                      .collection("users")
-                      .doc(user!.uid)
-                      .get()
-                      .then((curUser) {
-                    String userType = curUser.data()!['userType'];
-                    if (userType == 'CDO') {
+                  if (user!.emailVerified)
+                    {
+                      // user = _auth.currentUser,
+                      FirebaseFirestore.instance
+                          .collection("users")
+                          .doc(user!.uid)
+                          .get()
+                          .then((curUser) {
+                        String userType = curUser.data()!['userType'];
+                        if (userType == 'CDO') {
+                          CDOModel currentUser =
+                              CDOModel.fromMap(curUser.data());
 
-                      CDOModel currentUser = CDOModel.fromMap(curUser.data());
-
-                      Navigator.of(context).pushReplacement(MaterialPageRoute(
-                          builder: (context) =>
-                              CDODashboard(currentUser: currentUser)));
-                    } else if (userType == 'Solicitor') {
-
-                      SolicitorModel currentUser =
-                          SolicitorModel.fromMap(curUser.data());
-                      Navigator.of(context).pushReplacement(MaterialPageRoute(
-                          builder: (context) =>
-                              SolicitorDashboard(currentUser: currentUser)));
-                    } else if (userType == 'Firm Rep') {
-                      FirmRep currentUser = FirmRep.fromMap(curUser.data());
-                      Navigator.of(context).pushReplacement(MaterialPageRoute(
-                          builder: (context) =>
-                              FirmRepDashboard(currentUser: currentUser)));
+                          Navigator.of(context).pushReplacement(
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      CDODashboard(currentUser: currentUser)));
+                        } else if (userType == 'Solicitor') {
+                          SolicitorModel currentUser =
+                              SolicitorModel.fromMap(curUser.data());
+                          Navigator.of(context).pushReplacement(
+                              MaterialPageRoute(
+                                  builder: (context) => SolicitorDashboard(
+                                      currentUser: currentUser)));
+                        } else if (userType == 'Firm Rep') {
+                          FirmRep currentUser = FirmRep.fromMap(curUser.data());
+                          Navigator.of(context).pushReplacement(
+                              MaterialPageRoute(
+                                  builder: (context) => FirmRepDashboard(
+                                      currentUser: currentUser)));
+                        }
+                      })
                     }
-                  }),
+                  else
+                    {
+                      user!.sendEmailVerification(),
+                      Navigator.of(context).pushReplacement(MaterialPageRoute(
+                          builder: (context) => VerifyUser(
+                                email: email,
+                              )))
+                    },
                 });
       } on FirebaseAuthException catch (error) {
         errorText = error.code;
