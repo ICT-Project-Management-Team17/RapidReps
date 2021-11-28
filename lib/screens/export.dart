@@ -10,3 +10,6 @@ export 'firm_rep_dashboard.dart';
 export 'solicitor_dashboard.dart';
 export 'verify_user_screen.dart';
 export 'cdo_edit_profile.dart';
+export 'change_email.dart';
+export 'change_password.dart';
+export 'credential_change.dart';
