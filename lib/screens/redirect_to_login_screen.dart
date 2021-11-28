@@ -2,15 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:rapid_reps/screens/export.dart';
 import 'package:rapid_reps/widgets/export.dart';
 
-class VerifyUser extends StatefulWidget {
-  final String? email;
-  const VerifyUser({Key? key, this.email}) : super(key: key);
+class RedirectToLoginScreen extends StatefulWidget {
+  final String textToDisplay;
+  const RedirectToLoginScreen({
+    Key? key,
+    required this.textToDisplay,
+  }) : super(key: key);
 
   @override
-  _VerifyUserState createState() => _VerifyUserState();
+  _RedirectToLoginScreenState createState() => _RedirectToLoginScreenState();
 }
 
-class _VerifyUserState extends State<VerifyUser> {
+class _RedirectToLoginScreenState extends State<RedirectToLoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,7 +23,7 @@ class _VerifyUserState extends State<VerifyUser> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          Text('An Email has been sent to ${widget.email} please verify'),
+          Text(widget.textToDisplay),
           const SizedBox(
             height: 20,
           ),

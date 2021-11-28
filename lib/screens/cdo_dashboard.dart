@@ -1,16 +1,21 @@
+import 'package:bottom_navy_bar/bottom_navy_bar.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+
 import '../models/export.dart';
-import 'export.dart';
 import '../utilities/export.dart';
 import '../widgets/export.dart';
-import 'package:bottom_navy_bar/bottom_navy_bar.dart';
+import 'export.dart';
 
 class CDODashboard extends StatefulWidget {
-  final CDOModel currentUser;
+  late CDOModel currentUser;
 
-  const CDODashboard({Key? key, required this.currentUser}) : super(key: key);
+  CDODashboard({
+    Key? key,
+    required this.currentUser,
+  }) : super(key: key);
 
   @override
   _CDODashboardState createState() => _CDODashboardState();
@@ -26,13 +31,23 @@ class _CDODashboardState extends State<CDODashboard> {
   void initState() {
     super.initState();
     _pageController = PageController();
+    updateProfile();
+  }
+
+  updateProfile() async {
+    setState(() {
+      var collection = FirebaseFirestore.instance.collection('collection');
+      collection.doc(widget.currentUser.uid).get().then((value) {
+        widget.currentUser = CDOModel.fromMap(value.data());
+      });
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Dashboard ${widget.currentUser.userType}'),
+        title: Text('${widget.currentUser.userType} Dashboard'),
         centerTitle: true,
         backgroundColor: kCDOColour,
       ),
@@ -126,16 +141,66 @@ class _CDODashboardState extends State<CDODashboard> {
                       const SizedBox(
                         height: 50,
                       ),
+                      customIconButton(context,
+                          label: 'Edit',
+                          backgroundColour: kCDOColour,
+                          horizontalPadding: 35,
+                          icon: Icons.edit,
+                          onPressed: () => Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => CDOEditProfile(
+                                    currentUser: widget.currentUser,
+                                  ),
+                                ),
+                              )),
+                      const SizedBox(
+                        height: 50,
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+            Center(
+              child: SingleChildScrollView(
+                child: Padding(
+                  padding: const EdgeInsets.all(25.0),
+                  child: Column(
+                    children: [
+                      const SizedBox(
+                        height: 50,
+                      ),
                       customIconButton(
                         context,
-                        label: 'Edit',
+                        label: 'Change Email',
                         backgroundColour: kCDOColour,
-                        horizontalPadding: 35,
-                        icon: Icons.edit,
+                        horizontalPadding: 25,
+                        icon: Icons.email,
                         onPressed: () => Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => const ConstructionPage(),
+                            builder: (context) => ChangeEmail(
+                              userColor: kCDOColour,
+                            ),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 50,
+                      ),
+                      customIconButton(
+                        context,
+                        label: 'Change Password',
+                        backgroundColour: Colors.orange,
+                        horizontalPadding: 25,
+                        icon: Icons.password,
+                        onPressed: () => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => ChangePassword(
+                              userColour: kCDOColour,
+                            ),
                           ),
                         ),
                       ),
@@ -154,7 +219,7 @@ class _CDODashboardState extends State<CDODashboard> {
                   ),
                 ),
               ),
-            ),
+            )
           ],
         ),
       ),
@@ -190,6 +255,16 @@ class _CDODashboardState extends State<CDODashboard> {
               'Profile',
             ),
             activeColor: Colors.purpleAccent,
+            textAlign: TextAlign.center,
+          ),
+          BottomNavyBarItem(
+            icon: const Icon(
+              Icons.settings,
+            ),
+            title: const Text(
+              'Settings',
+            ),
+            activeColor: Colors.grey,
             textAlign: TextAlign.center,
           ),
         ],

@@ -20,7 +20,7 @@ class _FirmRepDashboardState extends State<FirmRepDashboard> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Dashboard ${widget.currentUser.userType}'),
+        title: Text('${widget.currentUser.userType} Dashboard'),
         centerTitle: true,
         backgroundColor: kFirmRepColour,
       ),
