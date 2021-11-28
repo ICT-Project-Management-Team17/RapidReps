@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import '../models/export.dart';
 import 'export.dart';
 import '../utilities/export.dart';
+import '../widgets/export.dart';
 import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 
 class CDODashboard extends StatefulWidget {
@@ -106,11 +107,11 @@ class _CDODashboardState extends State<CDODashboard> {
                       SizedBox(
                         height: mobileNumber != null ? 25 : 0,
                       ),
-                      getMobileNumber(),
+                      getNumber(mobileNumber),
                       SizedBox(
                         height: mobileNumber != null ? 25 : 0,
                       ),
-                      getTelephoneNumber(),
+                      getNumber(telephoneNumber),
                       SizedBox(
                         height: telephoneNumber != null ? 25 : 0,
                       ),
@@ -131,6 +132,12 @@ class _CDODashboardState extends State<CDODashboard> {
                         backgroundColour: kCDOColour,
                         horizontalPadding: 35,
                         icon: Icons.edit,
+                        onPressed: () => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const ConstructionPage(),
+                          ),
+                        ),
                       ),
                       const SizedBox(
                         height: 50,
@@ -141,6 +148,7 @@ class _CDODashboardState extends State<CDODashboard> {
                         backgroundColour: Colors.red,
                         horizontalPadding: 25,
                         icon: Icons.logout,
+                        onPressed: () => logout(context),
                       ),
                     ],
                   ),
@@ -189,63 +197,9 @@ class _CDODashboardState extends State<CDODashboard> {
     );
   }
 
-  TextButton customIconButton(
-    BuildContext context, {
-    required String label,
-    required Color backgroundColour,
-    required double horizontalPadding,
-    required IconData icon,
-  }) {
-    return TextButton.icon(
-      onPressed: () {
-        logout(context);
-      },
-      icon: Icon(icon),
-      label: Text(label),
-      style: TextButton.styleFrom(
-        primary: Colors.white,
-        backgroundColor: backgroundColour,
-        textStyle: const TextStyle(fontSize: 20),
-        padding: EdgeInsets.symmetric(
-          horizontal: horizontalPadding,
-          vertical: 10,
-        ),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(25.0),
-        ),
-      ),
-    );
-  }
-
   Future<void> logout(BuildContext context) async {
     await FirebaseAuth.instance.signOut();
     Navigator.of(context).pushReplacement(
         MaterialPageRoute(builder: (context) => const LoginScreen()));
-  }
-
-  getMobileNumber() {
-    if (mobileNumber != null) {
-      return Text(
-        "$mobileNumber",
-        style: const TextStyle(
-          color: Colors.black,
-          fontWeight: FontWeight.w500,
-          fontSize: 32,
-        ),
-      );
-    }
-  }
-
-  getTelephoneNumber() {
-    if (telephoneNumber != null) {
-      return Text(
-        "$telephoneNumber",
-        style: const TextStyle(
-          color: Colors.black,
-          fontWeight: FontWeight.w500,
-          fontSize: 32,
-        ),
-      );
-    }
   }
 }

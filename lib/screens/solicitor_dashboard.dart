@@ -7,6 +7,7 @@ import '../models/export.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'export.dart';
 import '../utilities/export.dart';
+import '../widgets/export.dart';
 
 class SolicitorDashboard extends StatefulWidget {
   final SolicitorModel currentUser;
@@ -110,7 +111,7 @@ class _SolicitorDashboardState extends State<SolicitorDashboard> {
                       const SizedBox(
                         height: 25,
                       ),
-                      getFirmDetails(),
+                      getFirmDetails(freelance, widget.currentUser.firm),
                       const SizedBox(
                         height: 25,
                       ),
@@ -125,11 +126,11 @@ class _SolicitorDashboardState extends State<SolicitorDashboard> {
                       SizedBox(
                         height: mobileNumber != null ? 25 : 0,
                       ),
-                      getMobileNumber(),
+                      getNumber(mobileNumber),
                       SizedBox(
                         height: mobileNumber != null ? 25 : 0,
                       ),
-                      getTelephoneNumber(),
+                      getNumber(telephoneNumber),
                       SizedBox(
                         height: telephoneNumber != null ? 25 : 0,
                       ),
@@ -150,6 +151,12 @@ class _SolicitorDashboardState extends State<SolicitorDashboard> {
                         backgroundColour: kCDOColour,
                         horizontalPadding: 35,
                         icon: Icons.edit,
+                        onPressed: () => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const ConstructionPage(),
+                          ),
+                        ),
                       ),
                       const SizedBox(
                         height: 50,
@@ -160,6 +167,7 @@ class _SolicitorDashboardState extends State<SolicitorDashboard> {
                         backgroundColour: Colors.red,
                         horizontalPadding: 25,
                         icon: Icons.logout,
+                        onPressed: () => logout(context),
                       ),
                     ],
                   ),
@@ -218,76 +226,9 @@ class _SolicitorDashboardState extends State<SolicitorDashboard> {
     );
   }
 
-  TextButton customIconButton(
-    BuildContext context, {
-    required String label,
-    required Color backgroundColour,
-    required double horizontalPadding,
-    required IconData icon,
-  }) {
-    return TextButton.icon(
-      onPressed: () {
-        logout(context);
-      },
-      icon: Icon(icon),
-      label: Text(label),
-      style: TextButton.styleFrom(
-        primary: Colors.white,
-        backgroundColor: backgroundColour,
-        textStyle: const TextStyle(fontSize: 20),
-        padding: EdgeInsets.symmetric(
-          horizontal: horizontalPadding,
-          vertical: 10,
-        ),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(25.0),
-        ),
-      ),
-    );
-  }
-
   Future<void> logout(BuildContext context) async {
     await FirebaseAuth.instance.signOut();
     Navigator.of(context).pushReplacement(
         MaterialPageRoute(builder: (context) => const LoginScreen()));
-  }
-
-  getFirmDetails() {
-    if (freelance != true) {
-      return Text(
-        "${widget.currentUser.firm}",
-        style: const TextStyle(
-          color: Colors.black,
-          fontWeight: FontWeight.w500,
-          fontSize: 32,
-        ),
-      );
-    }
-  }
-
-  getMobileNumber() {
-    if (mobileNumber != null) {
-      return Text(
-        "$mobileNumber",
-        style: const TextStyle(
-          color: Colors.black,
-          fontWeight: FontWeight.w500,
-          fontSize: 32,
-        ),
-      );
-    }
-  }
-
-  getTelephoneNumber() {
-    if (telephoneNumber != null) {
-      return Text(
-        "$telephoneNumber",
-        style: const TextStyle(
-          color: Colors.black,
-          fontWeight: FontWeight.w500,
-          fontSize: 32,
-        ),
-      );
-    }
   }
 }
