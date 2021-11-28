@@ -9,3 +9,4 @@ export 'cdo_dashboard.dart';
 export 'firm_rep_dashboard.dart';
 export 'solicitor_dashboard.dart';
 export 'verify_user_screen.dart';
+export 'cdo_edit_profile.dart';
