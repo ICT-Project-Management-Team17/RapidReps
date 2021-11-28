@@ -34,107 +34,105 @@ class _ChangeEmailState extends State<ChangeEmail> {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              Container(
-                child: Padding(
-                  padding: const EdgeInsets.all(25.0),
-                  child: Form(
-                    key: _formKey,
-                    child: Column(
-                      children: [
-                        TextFormField(
-                          controller: currentEmailController,
-                          keyboardType: TextInputType.emailAddress,
-                          validator: (email) {
-                            if (email!.isEmpty) {
-                              return "Please enter your current email";
-                            }
-                            // Email validation
-                            if (!RegExp(
-                                    r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-                                .hasMatch(email)) {
-                              return "Please enter a valid email";
-                            }
+              Padding(
+                padding: const EdgeInsets.all(25.0),
+                child: Form(
+                  key: _formKey,
+                  child: Column(
+                    children: [
+                      TextFormField(
+                        controller: currentEmailController,
+                        keyboardType: TextInputType.emailAddress,
+                        validator: (email) {
+                          if (email!.isEmpty) {
+                            return "Please enter your current email";
+                          }
+                          // Email validation
+                          if (!RegExp(
+                                  r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                              .hasMatch(email)) {
+                            return "Please enter a valid email";
+                          }
 
-                            return null;
-                          },
-                          onSaved: (value) {
-                            currentEmailController.text = value!;
-                          },
-                          decoration: const InputDecoration(
-                              hintText: 'Current Email',
-                              hintStyle: TextStyle(color: Colors.grey)),
-                        ),
-                        const SizedBox(
-                          height: 20,
-                        ),
-                        TextFormField(
-                          controller: newEmailController,
-                          keyboardType: TextInputType.emailAddress,
-                          validator: (email) {
-                            if (email!.isEmpty) {
-                              return "Please enter your new email";
-                            }
-                            // Email validation
-                            if (!RegExp(
-                                    r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-                                .hasMatch(email)) {
-                              return "Please enter a valid email";
-                            }
+                          return null;
+                        },
+                        onSaved: (value) {
+                          currentEmailController.text = value!;
+                        },
+                        decoration: const InputDecoration(
+                            hintText: 'Current Email',
+                            hintStyle: TextStyle(color: Colors.grey)),
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      TextFormField(
+                        controller: newEmailController,
+                        keyboardType: TextInputType.emailAddress,
+                        validator: (email) {
+                          if (email!.isEmpty) {
+                            return "Please enter your new email";
+                          }
+                          // Email validation
+                          if (!RegExp(
+                                  r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                              .hasMatch(email)) {
+                            return "Please enter a valid email";
+                          }
 
-                            return null;
-                          },
-                          onSaved: (value) {
-                            newEmailController.text = value!;
-                          },
-                          decoration: const InputDecoration(
-                              hintText: 'New Email',
-                              hintStyle: TextStyle(color: Colors.grey)),
-                        ),
-                        const SizedBox(
-                          height: 20,
-                        ),
-                        TextFormField(
-                          controller: confirmEmailController,
-                          keyboardType: TextInputType.emailAddress,
-                          validator: (email) {
-                            if (newEmailController.text != email) {
-                              return "Email does not match";
-                            }
+                          return null;
+                        },
+                        onSaved: (value) {
+                          newEmailController.text = value!;
+                        },
+                        decoration: const InputDecoration(
+                            hintText: 'New Email',
+                            hintStyle: TextStyle(color: Colors.grey)),
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      TextFormField(
+                        controller: confirmEmailController,
+                        keyboardType: TextInputType.emailAddress,
+                        validator: (email) {
+                          if (newEmailController.text != email) {
+                            return "Email does not match";
+                          }
 
-                            return null;
-                          },
-                          onSaved: (value) {
-                            confirmEmailController.text = value!;
-                          },
-                          decoration: const InputDecoration(
-                              hintText: 'Confirm New Email',
-                              hintStyle: TextStyle(color: Colors.grey)),
-                        ),
-                        const SizedBox(
-                          height: 20,
-                        ),
-                        TextFormField(
-                          controller: passwordController,
-                          validator: (password) {
-                            // RegExp regex = RegExp(r'^.{6,}$');
-                            if (password!.isEmpty) {
-                              return 'A Password is required to login';
-                            }
-                            if (!RegExp(r'^.{6,}$').hasMatch(password)) {
-                              return "Enter a valid password (Min 6 chars)";
-                            }
-                          },
-                          obscureText: true,
-                          textInputAction: TextInputAction.done,
-                          onSaved: (password) {
-                            passwordController.text = password!;
-                          },
-                          decoration: const InputDecoration(
-                              hintText: 'Password',
-                              hintStyle: TextStyle(color: Colors.grey)),
-                        ),
-                      ],
-                    ),
+                          return null;
+                        },
+                        onSaved: (value) {
+                          confirmEmailController.text = value!;
+                        },
+                        decoration: const InputDecoration(
+                            hintText: 'Confirm New Email',
+                            hintStyle: TextStyle(color: Colors.grey)),
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      TextFormField(
+                        controller: passwordController,
+                        validator: (password) {
+                          // RegExp regex = RegExp(r'^.{6,}$');
+                          if (password!.isEmpty) {
+                            return 'A Password is required to login';
+                          }
+                          if (!RegExp(r'^.{6,}$').hasMatch(password)) {
+                            return "Enter a valid password (Min 6 chars)";
+                          }
+                        },
+                        obscureText: true,
+                        textInputAction: TextInputAction.done,
+                        onSaved: (password) {
+                          passwordController.text = password!;
+                        },
+                        decoration: const InputDecoration(
+                            hintText: 'Password',
+                            hintStyle: TextStyle(color: Colors.grey)),
+                      ),
+                    ],
                   ),
                 ),
               ),
@@ -167,8 +165,11 @@ class _ChangeEmailState extends State<ChangeEmail> {
         await user!
             .reauthenticateWithCredential(cred)
             .then((value) => user.updateEmail(newEmail));
-        Navigator.of(context).pushReplacement(
-            MaterialPageRoute(builder: (context) => const CredentialChange()));
+        Navigator.of(context).pushReplacement(MaterialPageRoute(
+            builder: (context) => const RedirectToLoginScreen(
+                  textToDisplay:
+                      'Login Credentials were changed, please login with new credentials',
+                )));
       } on FirebaseAuthException catch (error) {
         errorText = error.code;
         if (errorText == 'too-many-requests') {

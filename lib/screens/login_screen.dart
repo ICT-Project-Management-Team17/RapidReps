@@ -210,8 +210,9 @@ class _LoginScreenState extends State<LoginScreen> {
                     {
                       user!.sendEmailVerification(),
                       Navigator.of(context).pushReplacement(MaterialPageRoute(
-                          builder: (context) => VerifyUser(
-                                email: email,
+                          builder: (context) => RedirectToLoginScreen(
+                                textToDisplay:
+                                    'An Email has been sent to $email please verify',
                               )))
                     },
                 });

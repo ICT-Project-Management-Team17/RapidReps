@@ -34,79 +34,77 @@ class _ChangePasswordState extends State<ChangePassword> {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              Container(
-                child: Padding(
-                  padding: const EdgeInsets.all(25.0),
-                  child: Form(
-                    key: _formKey,
-                    child: Column(
-                      children: [
-                        TextFormField(
-                          controller: currentPasswordController,
-                          validator: (currentPassword) {
-                            // RegExp regex = RegExp(r'^.{6,}$');
-                            if (currentPassword!.isEmpty) {
-                              return 'You need to enter in your current password';
-                            }
-                            if (!RegExp(r'^.{6,}$').hasMatch(currentPassword)) {
-                              return "Enter a valid password (Min 6 chars)";
-                            }
-                          },
-                          obscureText: true,
-                          textInputAction: TextInputAction.done,
-                          onSaved: (currentPassword) {
-                            currentPasswordController.text = currentPassword!;
-                          },
-                          decoration: const InputDecoration(
-                              hintText: 'Current Password',
-                              hintStyle: TextStyle(color: Colors.grey)),
-                        ),
-                        const SizedBox(
-                          height: 20,
-                        ),
-                        TextFormField(
-                          controller: passwordController,
-                          validator: (password) {
-                            // RegExp regex = RegExp(r'^.{6,}$');
-                            if (password!.isEmpty) {
-                              return 'Enter in a new password';
-                            }
-                            if (!RegExp(r'^.{6,}$').hasMatch(password)) {
-                              return "Enter a valid password (Min 6 chars)";
-                            }
-                          },
-                          obscureText: true,
-                          textInputAction: TextInputAction.done,
-                          onSaved: (password) {
-                            passwordController.text = password!;
-                          },
-                          decoration: const InputDecoration(
-                              hintText: 'New Password',
-                              hintStyle: TextStyle(color: Colors.grey)),
-                        ),
-                        const SizedBox(
-                          height: 20,
-                        ),
-                        TextFormField(
-                          controller: confirmPasswordController,
-                          validator: (password) {
-                            // RegExp regex = RegExp(r'^.{6,}$');
-                            if (passwordController.text != password) {
-                              return "Passwords do not match";
-                            }
-                            return null;
-                          },
-                          obscureText: true,
-                          textInputAction: TextInputAction.done,
-                          onSaved: (password) {
-                            confirmPasswordController.text = password!;
-                          },
-                          decoration: const InputDecoration(
-                              hintText: 'Confirm New Password',
-                              hintStyle: TextStyle(color: Colors.grey)),
-                        ),
-                      ],
-                    ),
+              Padding(
+                padding: const EdgeInsets.all(25.0),
+                child: Form(
+                  key: _formKey,
+                  child: Column(
+                    children: [
+                      TextFormField(
+                        controller: currentPasswordController,
+                        validator: (currentPassword) {
+                          // RegExp regex = RegExp(r'^.{6,}$');
+                          if (currentPassword!.isEmpty) {
+                            return 'You need to enter in your current password';
+                          }
+                          if (!RegExp(r'^.{6,}$').hasMatch(currentPassword)) {
+                            return "Enter a valid password (Min 6 chars)";
+                          }
+                        },
+                        obscureText: true,
+                        textInputAction: TextInputAction.done,
+                        onSaved: (currentPassword) {
+                          currentPasswordController.text = currentPassword!;
+                        },
+                        decoration: const InputDecoration(
+                            hintText: 'Current Password',
+                            hintStyle: TextStyle(color: Colors.grey)),
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      TextFormField(
+                        controller: passwordController,
+                        validator: (password) {
+                          // RegExp regex = RegExp(r'^.{6,}$');
+                          if (password!.isEmpty) {
+                            return 'Enter in a new password';
+                          }
+                          if (!RegExp(r'^.{6,}$').hasMatch(password)) {
+                            return "Enter a valid password (Min 6 chars)";
+                          }
+                        },
+                        obscureText: true,
+                        textInputAction: TextInputAction.done,
+                        onSaved: (password) {
+                          passwordController.text = password!;
+                        },
+                        decoration: const InputDecoration(
+                            hintText: 'New Password',
+                            hintStyle: TextStyle(color: Colors.grey)),
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      TextFormField(
+                        controller: confirmPasswordController,
+                        validator: (password) {
+                          // RegExp regex = RegExp(r'^.{6,}$');
+                          if (passwordController.text != password) {
+                            return "Passwords do not match";
+                          }
+                          return null;
+                        },
+                        obscureText: true,
+                        textInputAction: TextInputAction.done,
+                        onSaved: (password) {
+                          confirmPasswordController.text = password!;
+                        },
+                        decoration: const InputDecoration(
+                            hintText: 'Confirm New Password',
+                            hintStyle: TextStyle(color: Colors.grey)),
+                      ),
+                    ],
                   ),
                 ),
               ),
@@ -138,8 +136,11 @@ class _ChangePasswordState extends State<ChangePassword> {
         await user
             .reauthenticateWithCredential(cred)
             .then((value) => user.updatePassword(newPassword));
-        Navigator.of(context).pushReplacement(
-            MaterialPageRoute(builder: (context) => const CredentialChange()));
+        Navigator.of(context).pushReplacement(MaterialPageRoute(
+            builder: (context) => const RedirectToLoginScreen(
+                  textToDisplay:
+                      'Login Credentials were changed, please login with new credentials',
+                )));
       } on FirebaseAuthException catch (error) {
         errorText = error.code;
         if (errorText == 'too-many-requests') {

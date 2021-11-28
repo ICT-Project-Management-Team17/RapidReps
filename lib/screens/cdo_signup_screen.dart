@@ -329,7 +329,10 @@ class _CDOSignUpScreenState extends State<CDOSignUpScreen> {
 
     user.sendEmailVerification();
 
-    Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (context) => VerifyUser(email: user.email)));
+    Navigator.of(context).pushReplacement(MaterialPageRoute(
+        builder: (context) => RedirectToLoginScreen(
+              textToDisplay:
+                  'An Email has been sent to ${user.email} please verify',
+            )));
   }
 }
