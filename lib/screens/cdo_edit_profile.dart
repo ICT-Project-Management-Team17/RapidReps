@@ -3,13 +3,14 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:rapid_reps/screens/cdo_dashboard.dart';
+import 'package:rapid_reps/services/export.dart';
 import 'package:rapid_reps/widgets/export.dart';
 import '../models/export.dart';
 import '../utilities/export.dart';
 
 class CDOEditProfile extends StatefulWidget {
-  final CDOModel currentUser;
-  const CDOEditProfile({Key? key, required this.currentUser}) : super(key: key);
+  late CDOModel currentUser;
+  CDOEditProfile({Key? key, required this.currentUser}) : super(key: key);
 
   @override
   _CDOEditProfileState createState() => _CDOEditProfileState();
@@ -25,6 +26,17 @@ class _CDOEditProfileState extends State<CDOEditProfile> {
 
   final _auth = FirebaseAuth.instance;
   String? errorText;
+
+  updateProfileInfo() async {
+    await FirebaseFirestore.instance
+        .collection("users")
+        .doc(widget.currentUser.uid)
+        .get()
+        .then((value) {
+      widget.currentUser = CDOModel.fromMap(value.data());
+    });
+    return widget.currentUser;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -137,35 +149,27 @@ class _CDOEditProfileState extends State<CDOEditProfile> {
   updateProfile(String mobileNumber, String telephoneNumber) async {
     if (_formKey.currentState!.validate()) {
       try {
-        final user = await FirebaseAuth.instance.currentUser;
+        final user = await _auth.currentUser;
         var collection = FirebaseFirestore.instance.collection('users');
         collection.doc(user!.uid).update({
           'mobileNumber': mobileNumber,
           'policeStation': _policeStation,
           'telephoneNumber': telephoneNumber
         });
-        Fluttertoast.showToast(
+        customToast(
           msg: 'Updates Applied',
-          gravity: ToastGravity.CENTER,
-          timeInSecForIosWeb: 3,
           backgroundColor: Colors.red,
-          textColor: Colors.white,
-          fontSize: 16.0,
         );
-        Navigator.pop(context);
+        Navigator.pop(context, updateProfileInfo());
       } on FirebaseAuthException catch (error) {
         errorText = error.code;
         if (errorText == 'too-many-requests') {
           errorText =
               'Too many requests have been sent, please try again later';
         }
-        Fluttertoast.showToast(
+        customToast(
           msg: errorText!,
-          gravity: ToastGravity.CENTER,
-          timeInSecForIosWeb: 3,
           backgroundColor: Colors.red,
-          textColor: Colors.white,
-          fontSize: 16.0,
         );
       }
     }
