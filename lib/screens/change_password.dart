@@ -137,6 +137,7 @@ class _ChangePasswordState extends State<ChangePassword> {
         await user
             .reauthenticateWithCredential(cred)
             .then((value) => user.updatePassword(newPassword));
+        await FirebaseAuth.instance.signOut();
         Navigator.of(context).pushReplacement(MaterialPageRoute(
             builder: (context) => const RedirectToLoginScreen(
                   textToDisplay:

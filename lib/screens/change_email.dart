@@ -165,6 +165,7 @@ class _ChangeEmailState extends State<ChangeEmail> {
         await user!
             .reauthenticateWithCredential(cred)
             .then((value) => user.updateEmail(newEmail));
+        await FirebaseAuth.instance.signOut();
         Navigator.of(context).pushReplacement(MaterialPageRoute(
             builder: (context) => const RedirectToLoginScreen(
                   textToDisplay:
