@@ -1,4 +1,6 @@
+
 import 'export.dart';
+
 
 class SolicitorModel extends userModel {
   bool? freelancer;
