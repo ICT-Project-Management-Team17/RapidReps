@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:rapid_reps/services/export.dart';
 import '../models/export.dart';
 import '../widgets/export.dart';
 import 'export.dart';
@@ -226,13 +227,10 @@ class _LoginScreenState extends State<LoginScreen> {
           errorText = 'Incorrect Email & Password';
         }
         // Flutter toast used to show the 'incorrect password' error
-        Fluttertoast.showToast(
-            msg: errorText!,
-            gravity: ToastGravity.CENTER,
-            timeInSecForIosWeb: 3,
-            backgroundColor: Colors.red,
-            textColor: Colors.white,
-            fontSize: 16.0);
+        customToast(
+          msg: errorText!,
+          backgroundColor: Colors.red,
+        );
       }
     }
   }

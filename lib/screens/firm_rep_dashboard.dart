@@ -68,6 +68,7 @@ class _FirmRepDashboardState extends State<FirmRepDashboard> {
 
   Future<void> logout(BuildContext context) async {
     await FirebaseAuth.instance.signOut();
-    Navigator.pop(context);
+    Navigator.of(context).pushReplacement(
+        MaterialPageRoute(builder: (context) => const LoginScreen()));
   }
 }

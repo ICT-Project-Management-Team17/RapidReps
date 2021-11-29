@@ -3,7 +3,6 @@
 import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
-import 'package:geolocator/geolocator.dart';
 import '../models/export.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'export.dart';
@@ -293,6 +292,7 @@ class _SolicitorDashboardState extends State<SolicitorDashboard> {
 
   Future<void> logout(BuildContext context) async {
     await FirebaseAuth.instance.signOut();
-    Navigator.pop(context);
+    Navigator.of(context).pushReplacement(
+        MaterialPageRoute(builder: (context) => const LoginScreen()));
   }
 }

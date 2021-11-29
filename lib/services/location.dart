@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:rapid_reps/services/export.dart';
 
 class Location {
   late double latitude;
@@ -14,13 +15,9 @@ class Location {
       latitude = position.latitude;
       longitude = position.longitude;
     } catch (e) {
-      Fluttertoast.showToast(
+      customToast(
         msg: e as String,
-        gravity: ToastGravity.CENTER,
-        timeInSecForIosWeb: 3,
         backgroundColor: Colors.red,
-        textColor: Colors.white,
-        fontSize: 16.0,
       );
     }
   }

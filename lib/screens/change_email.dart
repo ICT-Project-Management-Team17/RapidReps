@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:rapid_reps/screens/export.dart';
+import 'package:rapid_reps/services/export.dart';
 import '../widgets/export.dart';
 
 class ChangeEmail extends StatefulWidget {
@@ -181,14 +182,11 @@ class _ChangeEmailState extends State<ChangeEmail> {
         } else if (errorText == 'wrong-email') {
           errorText = 'Wrong email entered, please try again';
         }
-        Fluttertoast.showToast(
+        customToast(
           msg: errorText!,
-          gravity: ToastGravity.CENTER,
-          timeInSecForIosWeb: 3,
           backgroundColor: Colors.red,
-          textColor: Colors.white,
-          fontSize: 16.0,
         );
+        
       }
     }
   }

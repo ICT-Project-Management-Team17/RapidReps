@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:rapid_reps/screens/cdo_dashboard.dart';
+import 'package:rapid_reps/services/export.dart';
 import 'package:rapid_reps/widgets/export.dart';
 import '../models/export.dart';
 import '../utilities/export.dart';
@@ -155,13 +156,9 @@ class _CDOEditProfileState extends State<CDOEditProfile> {
           'policeStation': _policeStation,
           'telephoneNumber': telephoneNumber
         });
-        Fluttertoast.showToast(
+        customToast(
           msg: 'Updates Applied',
-          gravity: ToastGravity.CENTER,
-          timeInSecForIosWeb: 3,
           backgroundColor: Colors.red,
-          textColor: Colors.white,
-          fontSize: 16.0,
         );
         Navigator.pop(context, updateProfileInfo());
       } on FirebaseAuthException catch (error) {
@@ -170,13 +167,9 @@ class _CDOEditProfileState extends State<CDOEditProfile> {
           errorText =
               'Too many requests have been sent, please try again later';
         }
-        Fluttertoast.showToast(
+        customToast(
           msg: errorText!,
-          gravity: ToastGravity.CENTER,
-          timeInSecForIosWeb: 3,
           backgroundColor: Colors.red,
-          textColor: Colors.white,
-          fontSize: 16.0,
         );
       }
     }
