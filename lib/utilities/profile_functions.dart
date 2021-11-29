@@ -11,6 +11,7 @@ getFirmDetails(bool? freelance, String? firm) {
       ),
     );
   }
+  return const Text("");
 }
 
 getNumber(String? number) {

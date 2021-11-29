@@ -84,7 +84,7 @@ class _SolicitorDashboardState extends State<SolicitorDashboard> {
                               );
                             },
                             child: const Icon(Icons.list),
-                            backgroundColor: kCDOColour,
+                            backgroundColor: kSolicitorColour,
                           ),
                         ),
                       ],

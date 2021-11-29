@@ -29,7 +29,7 @@ class _ChangePasswordState extends State<ChangePassword> {
       appBar: AppBar(
         title: const Text('Change Password'),
         centerTitle: true,
-        backgroundColor: kCDOColour,
+        backgroundColor: widget.userColour,
       ),
       body: Center(
         child: SingleChildScrollView(
@@ -113,7 +113,7 @@ class _ChangePasswordState extends State<ChangePassword> {
                 height: 20,
               ),
               CustomButton(
-                buttonColour: kCDOColour,
+                buttonColour: widget.userColour,
                 horizontalPadding: 25,
                 buttonText: 'Submit',
                 onPressed: () {
