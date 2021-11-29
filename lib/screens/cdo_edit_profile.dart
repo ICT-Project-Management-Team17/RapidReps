@@ -1,13 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:rapid_reps/screens/cdo_dashboard.dart';
 import 'package:rapid_reps/services/export.dart';
 import 'package:rapid_reps/widgets/export.dart';
 import '../models/export.dart';
 import '../utilities/export.dart';
 
+// ignore: must_be_immutable
 class CDOEditProfile extends StatefulWidget {
   late CDOModel currentUser;
   CDOEditProfile({Key? key, required this.currentUser}) : super(key: key);
@@ -149,7 +148,7 @@ class _CDOEditProfileState extends State<CDOEditProfile> {
   updateProfile(String mobileNumber, String telephoneNumber) async {
     if (_formKey.currentState!.validate()) {
       try {
-        final user = await _auth.currentUser;
+        final user = _auth.currentUser;
         var collection = FirebaseFirestore.instance.collection('users');
         collection.doc(user!.uid).update({
           'mobileNumber': mobileNumber,

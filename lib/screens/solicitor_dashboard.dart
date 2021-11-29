@@ -3,11 +3,14 @@
 import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:rapid_reps/services/export.dart';
 import '../models/export.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'export.dart';
 import '../utilities/export.dart';
 import '../widgets/export.dart';
+import 'dart:async';
 
 class SolicitorDashboard extends StatefulWidget {
   final SolicitorModel currentUser;
@@ -25,11 +28,32 @@ class _SolicitorDashboardState extends State<SolicitorDashboard> {
   late bool? freelance = widget.currentUser.freelancer;
   late String? mobileNumber = widget.currentUser.mobileNumber;
   late String? telephoneNumber = widget.currentUser.telephoneNumber;
+  late CameraPosition currentPosition;
+  late GoogleMapController newGoogleMapController;
+  final Completer<GoogleMapController> _controller = Completer();
+  static const CameraPosition _startPos = CameraPosition(
+    target: LatLng(51.49814, -0.10154),
+    zoom: 14,
+  );
 
   @override
   void initState() {
     super.initState();
+    getCurrentPosition();
     _pageController = PageController();
+  }
+
+  @override
+  void dispose() {
+    newGoogleMapController.dispose();
+    super.dispose();
+  }
+
+  getCurrentPosition() async {
+    currentPosition = await Maps().locatePosition();
+    newGoogleMapController.animateCamera(
+      CameraUpdate.newCameraPosition(currentPosition),
+    );
   }
 
   @override
@@ -54,8 +78,9 @@ class _SolicitorDashboardState extends State<SolicitorDashboard> {
                   child: Padding(
                     padding: const EdgeInsets.all(25.0),
                     child: Column(
-                      children: [
+                      children: const [
                         // widget goes here, need to know which one the team wants to go with for the dashboard
+                        Text("Front Page for solicitor"),
                       ],
                     ),
                   ),
@@ -68,8 +93,23 @@ class _SolicitorDashboardState extends State<SolicitorDashboard> {
                     child: Column(
                       children: [
                         // display map here
-                        const Text(
-                          "Map Page",
+                        ConstrainedBox(
+                          constraints: const BoxConstraints(
+                            maxHeight: 500,
+                            maxWidth: 900,
+                          ),
+                          child: GoogleMap(
+                            initialCameraPosition: _startPos,
+                            myLocationButtonEnabled: false,
+                            myLocationEnabled: true,
+                            zoomGesturesEnabled: true,
+                            zoomControlsEnabled: true,
+                            onMapCreated: (GoogleMapController controller) {
+                              _controller.complete(controller);
+                              newGoogleMapController = controller;
+                              getCurrentPosition();
+                            },
+                          ),
                         ),
                         Container(
                           alignment: Alignment.bottomRight,

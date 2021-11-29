@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:rapid_reps/screens/export.dart';
 import 'package:rapid_reps/services/export.dart';
 import '../widgets/export.dart';
@@ -160,7 +159,7 @@ class _ChangeEmailState extends State<ChangeEmail> {
       String currentEmail, String newEmail, String password) async {
     if (_formKey.currentState!.validate()) {
       try {
-        final user = await FirebaseAuth.instance.currentUser;
+        final user = FirebaseAuth.instance.currentUser;
         final cred = EmailAuthProvider.credential(
             email: currentEmail, password: password);
         await user!
@@ -186,7 +185,6 @@ class _ChangeEmailState extends State<ChangeEmail> {
           msg: errorText!,
           backgroundColor: Colors.red,
         );
-        
       }
     }
   }
