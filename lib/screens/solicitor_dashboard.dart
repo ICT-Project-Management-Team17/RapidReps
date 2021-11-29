@@ -3,6 +3,7 @@
 import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
+import 'package:geolocator/geolocator.dart';
 import '../models/export.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'export.dart';
