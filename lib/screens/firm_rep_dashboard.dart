@@ -18,45 +18,48 @@ class FirmRepDashboard extends StatefulWidget {
 class _FirmRepDashboardState extends State<FirmRepDashboard> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('${widget.currentUser.userType} Dashboard'),
-        centerTitle: true,
-        backgroundColor: kFirmRepColour,
-      ),
-      body: Center(
-        child: Padding(
-          padding: const EdgeInsets.all(25),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              const Text(
-                "Hello",
-                style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
-              ),
-              const SizedBox(
-                height: 5,
-              ),
-              Text(
-                "${widget.currentUser.firstName} ${widget.currentUser.lastName}",
-                style: const TextStyle(
-                    color: Colors.black, fontWeight: FontWeight.w500),
-              ),
-              Text(
-                "${widget.currentUser.email}",
-                style: const TextStyle(
-                    color: Colors.black, fontWeight: FontWeight.w500),
-              ),
-              const SizedBox(
-                height: 15,
-              ),
-              ActionChip(
-                  label: const Text("Logout"),
-                  onPressed: () {
-                    logout(context);
-                  }),
-            ],
+    return WillPopScope(
+      onWillPop: () async => false,
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text('${widget.currentUser.userType} Dashboard'),
+          centerTitle: true,
+          backgroundColor: kFirmRepColour,
+        ),
+        body: Center(
+          child: Padding(
+            padding: const EdgeInsets.all(25),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                const Text(
+                  "Hello",
+                  style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                ),
+                const SizedBox(
+                  height: 5,
+                ),
+                Text(
+                  "${widget.currentUser.firstName} ${widget.currentUser.lastName}",
+                  style: const TextStyle(
+                      color: Colors.black, fontWeight: FontWeight.w500),
+                ),
+                Text(
+                  "${widget.currentUser.email}",
+                  style: const TextStyle(
+                      color: Colors.black, fontWeight: FontWeight.w500),
+                ),
+                const SizedBox(
+                  height: 15,
+                ),
+                ActionChip(
+                    label: const Text("Logout"),
+                    onPressed: () {
+                      logout(context);
+                    }),
+              ],
+            ),
           ),
         ),
       ),
@@ -65,7 +68,6 @@ class _FirmRepDashboardState extends State<FirmRepDashboard> {
 
   Future<void> logout(BuildContext context) async {
     await FirebaseAuth.instance.signOut();
-    Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (context) => const LoginScreen()));
+    Navigator.pop(context);
   }
 }

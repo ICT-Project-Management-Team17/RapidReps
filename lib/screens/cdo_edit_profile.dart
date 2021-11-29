@@ -137,7 +137,7 @@ class _CDOEditProfileState extends State<CDOEditProfile> {
   updateProfile(String mobileNumber, String telephoneNumber) async {
     if (_formKey.currentState!.validate()) {
       try {
-        final user = await FirebaseAuth.instance.currentUser;
+        final user = await _auth.currentUser;
         var collection = FirebaseFirestore.instance.collection('users');
         collection.doc(user!.uid).update({
           'mobileNumber': mobileNumber,
