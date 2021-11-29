@@ -37,6 +37,8 @@ dependencies:
     flutter_tts: ^3.2.2
     fluttertoast: ^8.0.8
     geolocator: ^8.0.0
+    google_maps_flutter: ^2.1.1
+    latlng: any
     mockito: ^5.0.16
 
 dev_dependencies:

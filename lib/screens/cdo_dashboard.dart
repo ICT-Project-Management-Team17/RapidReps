@@ -9,6 +9,7 @@ import '../utilities/export.dart';
 import '../widgets/export.dart';
 import 'export.dart';
 
+// ignore: must_be_immutable
 class CDODashboard extends StatefulWidget {
   late CDOModel currentUser;
 
