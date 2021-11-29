@@ -10,9 +10,9 @@ import '../widgets/export.dart';
 import 'export.dart';
 
 class CDODashboard extends StatefulWidget {
-  final CDOModel currentUser;
+  late CDOModel currentUser;
 
-  const CDODashboard({
+  CDODashboard({
     Key? key,
     required this.currentUser,
   }) : super(key: key);
@@ -31,21 +31,6 @@ class _CDODashboardState extends State<CDODashboard> {
   void initState() {
     super.initState();
     _pageController = PageController();
-    updateProfile();
-  }
-
-  updateProfile() async {
-    var collection = FirebaseFirestore.instance
-        .collection('users')
-        .doc(widget.currentUser.uid)
-        .get()
-        .then((DocumentSnapshot documentSnapshot) {
-      if (documentSnapshot.exists) {
-        print('Document data: ${documentSnapshot.data()}');
-      } else {
-        print('Document does not exist on the database');
-      }
-    });
   }
 
   @override
@@ -155,8 +140,8 @@ class _CDODashboardState extends State<CDODashboard> {
                           backgroundColour: kCDOColour,
                           horizontalPadding: 35,
                           icon: Icons.edit,
-                          onPressed: () {
-                            Navigator.push(
+                          onPressed: () async {
+                            final result = await Navigator.push(
                               context,
                               MaterialPageRoute(
                                 builder: (context) => CDOEditProfile(
@@ -164,7 +149,12 @@ class _CDODashboardState extends State<CDODashboard> {
                                 ),
                               ),
                             );
-                            updateProfile();
+                            setState(() {
+                              widget.currentUser = result;
+                              mobileNumber = widget.currentUser.mobileNumber;
+                              telephoneNumber =
+                                  widget.currentUser.telephoneNumber;
+                            });
                           },
                         ),
                         const SizedBox(

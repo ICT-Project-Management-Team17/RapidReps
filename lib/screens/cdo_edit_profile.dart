@@ -8,8 +8,8 @@ import '../models/export.dart';
 import '../utilities/export.dart';
 
 class CDOEditProfile extends StatefulWidget {
-  final CDOModel currentUser;
-  const CDOEditProfile({Key? key, required this.currentUser}) : super(key: key);
+  late CDOModel currentUser;
+  CDOEditProfile({Key? key, required this.currentUser}) : super(key: key);
 
   @override
   _CDOEditProfileState createState() => _CDOEditProfileState();
@@ -25,6 +25,17 @@ class _CDOEditProfileState extends State<CDOEditProfile> {
 
   final _auth = FirebaseAuth.instance;
   String? errorText;
+
+  updateProfileInfo() async {
+    await FirebaseFirestore.instance
+        .collection("users")
+        .doc(widget.currentUser.uid)
+        .get()
+        .then((value) {
+      widget.currentUser = CDOModel.fromMap(value.data());
+    });
+    return widget.currentUser;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -152,7 +163,7 @@ class _CDOEditProfileState extends State<CDOEditProfile> {
           textColor: Colors.white,
           fontSize: 16.0,
         );
-        Navigator.pop(context);
+        Navigator.pop(context, updateProfileInfo());
       } on FirebaseAuthException catch (error) {
         errorText = error.code;
         if (errorText == 'too-many-requests') {
