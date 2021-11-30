@@ -114,26 +114,29 @@ class _CDODashboardState extends State<CDODashboard> {
                         ),
                         Visibility(
                           visible: mobileNumber != null,
-                          child: Column(children: [
-                            const SizedBox(
-                              height: 25,
-                            ),
-                            getNumber(mobileNumber),
-                            const SizedBox(
-                              height: 25,
-                            )
-                          ]),
+                          child: Column(
+                            children: [
+                              const SizedBox(
+                                height: 25,
+                              ),
+                              getNumber(mobileNumber),
+                              const SizedBox(
+                                height: 25,
+                              )
+                            ],
+                          ),
                         ),
                         Visibility(
-                            visible: telephoneNumber != null,
-                            child: Column(
-                              children: [
-                                getNumber(telephoneNumber),
-                                const SizedBox(
-                                  height: 25,
-                                ),
-                              ],
-                            )),
+                          visible: telephoneNumber != null,
+                          child: Column(
+                            children: [
+                              getNumber(telephoneNumber),
+                              const SizedBox(
+                                height: 25,
+                              ),
+                            ],
+                          ),
+                        ),
                         Text(
                           "${widget.currentUser.email}",
                           style: const TextStyle(

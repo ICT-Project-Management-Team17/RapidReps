@@ -13,4 +13,5 @@ export 'redirect_to_login_screen.dart';
 export 'cdo_edit_profile.dart';
 export 'change_email.dart';
 export 'change_password.dart';
+export 'solicitor_edit_profile.dart';
 
