@@ -1,6 +1,4 @@
-import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:rapid_reps/services/export.dart';
 
 class Location {
   late double latitude;

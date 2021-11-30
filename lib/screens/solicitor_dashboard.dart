@@ -1,6 +1,7 @@
 // ignore_for_file: file_names
 
 import 'package:bottom_navy_bar/bottom_navy_bar.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -59,7 +60,7 @@ class _SolicitorDashboardState extends State<SolicitorDashboard> {
       );
     } catch (e) {
       customToast(
-        msg: e as String,
+        msg: e.toString(),
         backgroundColor: Colors.red,
       );
     }
@@ -109,16 +110,22 @@ class _SolicitorDashboardState extends State<SolicitorDashboard> {
                           ),
                           child: GoogleMap(
                             initialCameraPosition: _startPos,
-                            myLocationButtonEnabled: false,
+                            myLocationButtonEnabled: true,
                             myLocationEnabled: true,
                             zoomGesturesEnabled: true,
                             zoomControlsEnabled: true,
                             onMapCreated: (GoogleMapController controller) {
                               if (!_controller.isCompleted) {
                                 _controller.complete(controller);
+                                newGoogleMapController = controller;
+                                getCurrentPosition();
                               }
-                              newGoogleMapController = controller;
-                              getCurrentPosition();
+                            },
+                            gestureRecognizers: <
+                                Factory<OneSequenceGestureRecognizer>>{
+                              Factory<OneSequenceGestureRecognizer>(
+                                () => EagerGestureRecognizer(),
+                              ),
                             },
                           ),
                         ),
