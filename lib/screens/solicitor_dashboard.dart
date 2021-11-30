@@ -39,7 +39,9 @@ class _SolicitorDashboardState extends State<SolicitorDashboard> {
   @override
   void initState() {
     super.initState();
-    getCurrentPosition();
+    getCurrentPosition().whenComplete(() {
+      setState(() {});
+    });
     _pageController = PageController();
   }
 
@@ -50,10 +52,17 @@ class _SolicitorDashboardState extends State<SolicitorDashboard> {
   }
 
   getCurrentPosition() async {
-    currentPosition = await Maps().locatePosition();
-    newGoogleMapController.animateCamera(
-      CameraUpdate.newCameraPosition(currentPosition),
-    );
+    try {
+      currentPosition = await Maps().locatePosition();
+      newGoogleMapController.animateCamera(
+        CameraUpdate.newCameraPosition(currentPosition),
+      );
+    } catch (e) {
+      customToast(
+        msg: e as String,
+        backgroundColor: Colors.red,
+      );
+    }
   }
 
   @override
@@ -105,7 +114,9 @@ class _SolicitorDashboardState extends State<SolicitorDashboard> {
                             zoomGesturesEnabled: true,
                             zoomControlsEnabled: true,
                             onMapCreated: (GoogleMapController controller) {
-                              _controller.complete(controller);
+                              if (!_controller.isCompleted) {
+                                _controller.complete(controller);
+                              }
                               newGoogleMapController = controller;
                               getCurrentPosition();
                             },
