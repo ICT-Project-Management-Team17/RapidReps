@@ -1,4 +1,5 @@
 import 'package:bottom_navy_bar/bottom_navy_bar.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:rapid_reps/services/export.dart';
@@ -183,10 +184,20 @@ class _CDODashboardState extends State<CDODashboard> {
                           horizontalPadding: 25,
                           icon: Icons.delete_forever,
                           onPressed: () async {
-                            final String action =
-                                await deleteAccountDialog(context);
-                            if (action == "Delete") {
-                              print("Deleting account");
+                            var action = await deleteAccountDialog(context);
+                            if (action != "Cancel" &&
+                                action != null &&
+                                action != "") {
+                              var result = await AuthService()
+                                  .deleteUser(widget.currentUser.email, action);
+                              if (result == true) {
+                                Navigator.of(context).pushReplacement(
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            const RedirectToLoginScreen(
+                                              textToDisplay: 'Account Deleted',
+                                            )));
+                              }
                             }
                           },
                         )
