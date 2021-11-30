@@ -7,7 +7,6 @@ import 'package:flutter/foundation.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:rapid_reps/services/export.dart';
 import '../models/export.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'export.dart';
 import '../utilities/export.dart';
 import '../widgets/export.dart';
@@ -383,11 +382,5 @@ class _SolicitorDashboardState extends State<SolicitorDashboard> {
         ),
       ),
     );
-  }
-
-  Future<void> logout(BuildContext context) async {
-    await FirebaseAuth.instance.signOut();
-    Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (context) => const LoginScreen()));
   }
 }

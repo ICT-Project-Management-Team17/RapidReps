@@ -1,8 +1,7 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:rapid_reps/models/user_model.dart';
-import 'package:rapid_reps/screens/export.dart';
+import 'package:rapid_reps/services/export.dart';
 import 'package:rapid_reps/utilities/constants.dart';
 
 class FirmRepDashboard extends StatefulWidget {
@@ -64,11 +63,5 @@ class _FirmRepDashboardState extends State<FirmRepDashboard> {
         ),
       ),
     );
-  }
-
-  Future<void> logout(BuildContext context) async {
-    await FirebaseAuth.instance.signOut();
-    Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (context) => const LoginScreen()));
   }
 }

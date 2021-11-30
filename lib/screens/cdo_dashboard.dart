@@ -1,7 +1,7 @@
 import 'package:bottom_navy_bar/bottom_navy_bar.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:rapid_reps/services/export.dart';
 
 import '../models/export.dart';
 import '../utilities/export.dart';
@@ -176,6 +176,20 @@ class _CDODashboardState extends State<CDODashboard> {
                         const SizedBox(
                           height: 50,
                         ),
+                        customIconButton(
+                          context,
+                          label: 'Delete Account',
+                          backgroundColour: Colors.red,
+                          horizontalPadding: 25,
+                          icon: Icons.delete_forever,
+                          onPressed: () async {
+                            final String action =
+                                await deleteAccountDialog(context);
+                            if (action == "Delete") {
+                              print("Deleting account");
+                            }
+                          },
+                        )
                       ],
                     ),
                   ),
@@ -290,11 +304,5 @@ class _CDODashboardState extends State<CDODashboard> {
         ),
       ),
     );
-  }
-
-  Future<void> logout(BuildContext context) async {
-    await FirebaseAuth.instance.signOut();
-    Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (context) => const LoginScreen()));
   }
 }
