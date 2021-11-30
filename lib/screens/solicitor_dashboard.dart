@@ -258,6 +258,30 @@ class _SolicitorDashboardState extends State<SolicitorDashboard> {
                         const SizedBox(
                           height: 50,
                         ),
+                        customIconButton(
+                          context,
+                          label: 'Delete Account',
+                          backgroundColour: Colors.red,
+                          horizontalPadding: 25,
+                          icon: Icons.delete_forever,
+                          onPressed: () async {
+                            var action = await deleteAccountDialog(context);
+                            if (action != "Cancel" &&
+                                action != null &&
+                                action != "") {
+                              var result = await AuthService()
+                                  .deleteUser(widget.currentUser.email, action);
+                              if (result == true) {
+                                Navigator.of(context).pushReplacement(
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            const RedirectToLoginScreen(
+                                              textToDisplay: 'Account Deleted',
+                                            )));
+                              }
+                            }
+                          },
+                        )
                       ],
                     ),
                   ),
