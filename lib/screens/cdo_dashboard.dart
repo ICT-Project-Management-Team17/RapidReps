@@ -3,7 +3,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
-
 import '../models/export.dart';
 import '../utilities/export.dart';
 import '../widgets/export.dart';
@@ -12,7 +11,6 @@ import 'export.dart';
 // ignore: must_be_immutable
 class CDODashboard extends StatefulWidget {
   late CDOModel currentUser;
-
 
   CDODashboard({
     Key? key,
@@ -114,17 +112,28 @@ class _CDODashboardState extends State<CDODashboard> {
                             fontSize: 32,
                           ),
                         ),
-                        SizedBox(
-                          height: mobileNumber != null ? 25 : 0,
+                        Visibility(
+                          visible: mobileNumber != null,
+                          child: Column(children: [
+                            const SizedBox(
+                              height: 25,
+                            ),
+                            getNumber(mobileNumber),
+                            const SizedBox(
+                              height: 25,
+                            )
+                          ]),
                         ),
-                        getNumber(mobileNumber),
-                        SizedBox(
-                          height: mobileNumber != null ? 25 : 0,
-                        ),
-                        getNumber(telephoneNumber),
-                        SizedBox(
-                          height: telephoneNumber != null ? 25 : 0,
-                        ),
+                        Visibility(
+                            visible: telephoneNumber != null,
+                            child: Column(
+                              children: [
+                                getNumber(telephoneNumber),
+                                const SizedBox(
+                                  height: 25,
+                                ),
+                              ],
+                            )),
                         Text(
                           "${widget.currentUser.email}",
                           style: const TextStyle(
@@ -152,10 +161,12 @@ class _CDODashboardState extends State<CDODashboard> {
                               ),
                             );
                             setState(() {
-                              widget.currentUser = result;
-                              mobileNumber = widget.currentUser.mobileNumber;
-                              telephoneNumber =
-                                  widget.currentUser.telephoneNumber;
+                              if (result != null) {
+                                widget.currentUser = result;
+                                mobileNumber = widget.currentUser.mobileNumber;
+                                telephoneNumber =
+                                    widget.currentUser.telephoneNumber;
+                              }
                             });
                           },
                         ),
