@@ -1,8 +1,8 @@
 import 'package:bottom_navy_bar/bottom_navy_bar.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-
+import 'package:rapid_reps/services/export.dart';
 
 import '../models/export.dart';
 import '../utilities/export.dart';
@@ -12,7 +12,6 @@ import 'export.dart';
 // ignore: must_be_immutable
 class CDODashboard extends StatefulWidget {
   late CDOModel currentUser;
-
 
   CDODashboard({
     Key? key,
@@ -114,16 +113,30 @@ class _CDODashboardState extends State<CDODashboard> {
                             fontSize: 32,
                           ),
                         ),
-                        SizedBox(
-                          height: mobileNumber != null ? 25 : 0,
+                        Visibility(
+                          visible: mobileNumber != null,
+                          child: Column(
+                            children: [
+                              const SizedBox(
+                                height: 25,
+                              ),
+                              getNumber(mobileNumber),
+                              const SizedBox(
+                                height: 25,
+                              )
+                            ],
+                          ),
                         ),
-                        getNumber(mobileNumber),
-                        SizedBox(
-                          height: mobileNumber != null ? 25 : 0,
-                        ),
-                        getNumber(telephoneNumber),
-                        SizedBox(
-                          height: telephoneNumber != null ? 25 : 0,
+                        Visibility(
+                          visible: telephoneNumber != null,
+                          child: Column(
+                            children: [
+                              getNumber(telephoneNumber),
+                              const SizedBox(
+                                height: 25,
+                              ),
+                            ],
+                          ),
                         ),
                         Text(
                           "${widget.currentUser.email}",
@@ -152,16 +165,42 @@ class _CDODashboardState extends State<CDODashboard> {
                               ),
                             );
                             setState(() {
-                              widget.currentUser = result;
-                              mobileNumber = widget.currentUser.mobileNumber;
-                              telephoneNumber =
-                                  widget.currentUser.telephoneNumber;
+                              if (result != null) {
+                                widget.currentUser = result;
+                                mobileNumber = widget.currentUser.mobileNumber;
+                                telephoneNumber =
+                                    widget.currentUser.telephoneNumber;
+                              }
                             });
                           },
                         ),
                         const SizedBox(
                           height: 50,
                         ),
+                        customIconButton(
+                          context,
+                          label: 'Delete Account',
+                          backgroundColour: Colors.red,
+                          horizontalPadding: 25,
+                          icon: Icons.delete_forever,
+                          onPressed: () async {
+                            var action = await deleteAccountDialog(context);
+                            if (action != "Cancel" &&
+                                action != null &&
+                                action != "") {
+                              var result = await AuthService()
+                                  .deleteUser(widget.currentUser.email, action);
+                              if (result == true) {
+                                Navigator.of(context).pushReplacement(
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            const RedirectToLoginScreen(
+                                              textToDisplay: 'Account Deleted',
+                                            )));
+                              }
+                            }
+                          },
+                        )
                       ],
                     ),
                   ),
@@ -276,11 +315,5 @@ class _CDODashboardState extends State<CDODashboard> {
         ),
       ),
     );
-  }
-
-  Future<void> logout(BuildContext context) async {
-    await FirebaseAuth.instance.signOut();
-    Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (context) => const LoginScreen()));
   }
 }

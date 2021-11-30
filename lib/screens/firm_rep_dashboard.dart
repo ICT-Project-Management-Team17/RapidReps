@@ -1,21 +1,36 @@
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/foundation.dart';
+import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:rapid_reps/models/user_model.dart';
-import 'package:rapid_reps/screens/export.dart';
-import 'package:rapid_reps/utilities/constants.dart';
+import 'package:flutter/foundation.dart';
+import 'package:rapid_reps/screens/firm_rep_edit_profile.dart';
+import 'package:rapid_reps/services/export.dart';
+import '../models/export.dart';
+import 'export.dart';
+import '../utilities/export.dart';
+import '../widgets/export.dart';
 
+// ignore: must_be_immutable
 class FirmRepDashboard extends StatefulWidget {
-  final userModel currentUser;
+  late FirmRep currentUser;
 
-  const FirmRepDashboard({Key? key, required this.currentUser})
-      : super(key: key);
+  FirmRepDashboard({Key? key, required this.currentUser}) : super(key: key);
 
   @override
   _FirmRepDashboardState createState() => _FirmRepDashboardState();
 }
 
 class _FirmRepDashboardState extends State<FirmRepDashboard> {
+  int _currentIndex = 0;
+  late PageController _pageController;
+  late String? mobileNumber = widget.currentUser.mobileNumber;
+  late String? telephoneNumber = widget.currentUser.telephoneNumber;
+  late String? firm = widget.currentUser.firm;
+
+  @override
+  void initState() {
+    super.initState();
+    _pageController = PageController();
+  }
+
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
@@ -26,49 +41,260 @@ class _FirmRepDashboardState extends State<FirmRepDashboard> {
           centerTitle: true,
           backgroundColor: kFirmRepColour,
         ),
-        body: Center(
-          child: Padding(
-            padding: const EdgeInsets.all(25),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                const Text(
-                  "Hello",
-                  style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+        body: SizedBox.expand(
+          child: PageView(
+            controller: _pageController,
+            onPageChanged: (index) {
+              setState(() => _currentIndex = index);
+            },
+            children: <Widget>[
+              Center(
+                child: SingleChildScrollView(
+                  child: Padding(
+                    padding: const EdgeInsets.all(25.0),
+                    child: Column(
+                      children: const [
+                        // widget goes here, need to know which one the team wants to go with for the dashboard
+                        Text("Front Page for Firm Rep"),
+                      ],
+                    ),
+                  ),
                 ),
-                const SizedBox(
-                  height: 5,
+              ),
+              Center(
+                child: SingleChildScrollView(
+                  child: Padding(
+                    padding: const EdgeInsets.all(25),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        const SizedBox(
+                          height: 25,
+                        ),
+                        Text(
+                          "${widget.currentUser.firstName?.capitalize()} ${widget.currentUser.lastName?.capitalize()}",
+                          style: const TextStyle(
+                            color: Colors.black,
+                            fontWeight: FontWeight.w500,
+                            fontSize: 32,
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 25,
+                        ),
+                        Text(
+                          "$firm",
+                          style: const TextStyle(
+                            color: Colors.black,
+                            fontWeight: FontWeight.w500,
+                            fontSize: 32,
+                          ),
+                        ),
+                        Visibility(
+                          visible: mobileNumber != null,
+                          child: Column(
+                            children: [
+                              const SizedBox(
+                                height: 25,
+                              ),
+                              getNumber(mobileNumber),
+                              const SizedBox(
+                                height: 25,
+                              )
+                            ],
+                          ),
+                        ),
+                        Visibility(
+                          visible: telephoneNumber != null,
+                          child: Column(
+                            children: [
+                              getNumber(telephoneNumber),
+                              const SizedBox(
+                                height: 25,
+                              ),
+                            ],
+                          ),
+                        ),
+                        Text(
+                          "${widget.currentUser.email}",
+                          style: const TextStyle(
+                            color: Colors.black,
+                            fontWeight: FontWeight.w500,
+                            fontSize: 32,
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 50,
+                        ),
+                        customIconButton(
+                          context,
+                          label: 'Edit',
+                          backgroundColour: kFirmRepColour,
+                          horizontalPadding: 35,
+                          icon: Icons.edit,
+                          onPressed: () async {
+                            final result = await Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => FirmRepEditProfile(
+                                  currentUser: widget.currentUser,
+                                ),
+                              ),
+                            );
+                            setState(() {
+                              if (result != null) {
+                                widget.currentUser = result;
+                                mobileNumber = widget.currentUser.mobileNumber;
+                                telephoneNumber =
+                                    widget.currentUser.telephoneNumber;
+                                firm = widget.currentUser.firm;
+                              }
+                            });
+                          },
+                        ),
+                        const SizedBox(
+                          height: 50,
+                        ),
+                        customIconButton(
+                          context,
+                          label: 'Delete Account',
+                          backgroundColour: Colors.red,
+                          horizontalPadding: 25,
+                          icon: Icons.delete_forever,
+                          onPressed: () async {
+                            var action = await deleteAccountDialog(context);
+                            if (action != "Cancel" &&
+                                action != null &&
+                                action != "") {
+                              var result = await AuthService()
+                                  .deleteUser(widget.currentUser.email, action);
+                              if (result == true) {
+                                Navigator.of(context).pushReplacement(
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        const RedirectToLoginScreen(
+                                      textToDisplay: 'Account Deleted',
+                                    ),
+                                  ),
+                                );
+                              }
+                            }
+                          },
+                        )
+                      ],
+                    ),
+                  ),
                 ),
-                Text(
-                  "${widget.currentUser.firstName} ${widget.currentUser.lastName}",
-                  style: const TextStyle(
-                      color: Colors.black, fontWeight: FontWeight.w500),
+              ),
+              Center(
+                child: SingleChildScrollView(
+                  child: Padding(
+                    padding: const EdgeInsets.all(25.0),
+                    child: Column(
+                      children: [
+                        const SizedBox(
+                          height: 50,
+                        ),
+                        customIconButton(
+                          context,
+                          label: 'Change Email',
+                          backgroundColour: kFirmRepColour,
+                          horizontalPadding: 25,
+                          icon: Icons.email,
+                          onPressed: () => Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => ChangeEmail(
+                                userColor: kFirmRepColour,
+                              ),
+                            ),
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 50,
+                        ),
+                        customIconButton(
+                          context,
+                          label: 'Change Password',
+                          backgroundColour: Colors.orange,
+                          horizontalPadding: 25,
+                          icon: Icons.password,
+                          onPressed: () => Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => ChangePassword(
+                                userColour: kFirmRepColour,
+                              ),
+                            ),
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 50,
+                        ),
+                        customIconButton(
+                          context,
+                          label: 'Logout',
+                          backgroundColour: Colors.red,
+                          horizontalPadding: 25,
+                          icon: Icons.logout,
+                          onPressed: () => logout(context),
+                        ),
+                      ],
+                    ),
+                  ),
                 ),
-                Text(
-                  "${widget.currentUser.email}",
-                  style: const TextStyle(
-                      color: Colors.black, fontWeight: FontWeight.w500),
-                ),
-                const SizedBox(
-                  height: 15,
-                ),
-                ActionChip(
-                    label: const Text("Logout"),
-                    onPressed: () {
-                      logout(context);
-                    }),
-              ],
-            ),
+              )
+            ],
           ),
+        ),
+        bottomNavigationBar: BottomNavyBar(
+          selectedIndex: _currentIndex,
+          showElevation: true,
+          itemCornerRadius: 24,
+          curve: Curves.easeIn,
+          onItemSelected: (index) {
+            setState(() => _currentIndex = index);
+            _pageController.animateToPage(index,
+                duration: const Duration(
+                  milliseconds: 300,
+                ),
+                curve: Curves.ease);
+          },
+          items: <BottomNavyBarItem>[
+            BottomNavyBarItem(
+              icon: const Icon(
+                Icons.apps,
+              ),
+              title: const Text(
+                'Jobs Taken',
+              ),
+              activeColor: Colors.blue,
+              textAlign: TextAlign.center,
+            ),
+            BottomNavyBarItem(
+              icon: const Icon(
+                Icons.people,
+              ),
+              title: const Text(
+                'Profile',
+              ),
+              activeColor: Colors.purpleAccent,
+              textAlign: TextAlign.center,
+            ),
+            BottomNavyBarItem(
+              icon: const Icon(
+                Icons.settings,
+              ),
+              title: const Text(
+                'Settings',
+              ),
+              activeColor: Colors.grey,
+              textAlign: TextAlign.center,
+            ),
+          ],
         ),
       ),
     );
-  }
-
-  Future<void> logout(BuildContext context) async {
-    await FirebaseAuth.instance.signOut();
-    Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (context) => const LoginScreen()));
   }
 }
