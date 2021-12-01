@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:rapid_reps/screens/export.dart';
+import 'package:rapid_reps/services/export.dart';
 import '../widgets/export.dart';
 
 class ChangeEmail extends StatefulWidget {
@@ -159,12 +159,13 @@ class _ChangeEmailState extends State<ChangeEmail> {
       String currentEmail, String newEmail, String password) async {
     if (_formKey.currentState!.validate()) {
       try {
-        final user = await FirebaseAuth.instance.currentUser;
+        final user = FirebaseAuth.instance.currentUser;
         final cred = EmailAuthProvider.credential(
             email: currentEmail, password: password);
         await user!
             .reauthenticateWithCredential(cred)
             .then((value) => user.updateEmail(newEmail));
+        await FirebaseAuth.instance.signOut();
         Navigator.of(context).pushReplacement(MaterialPageRoute(
             builder: (context) => const RedirectToLoginScreen(
                   textToDisplay:
@@ -180,13 +181,9 @@ class _ChangeEmailState extends State<ChangeEmail> {
         } else if (errorText == 'wrong-email') {
           errorText = 'Wrong email entered, please try again';
         }
-        Fluttertoast.showToast(
+        customToast(
           msg: errorText!,
-          gravity: ToastGravity.CENTER,
-          timeInSecForIosWeb: 3,
           backgroundColor: Colors.red,
-          textColor: Colors.white,
-          fontSize: 16.0,
         );
       }
     }

@@ -1,9 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:rapid_reps/screens/export.dart';
+import 'package:rapid_reps/services/export.dart';
 import '../widgets/export.dart';
-import '../utilities/export.dart';
 
 class ChangePassword extends StatefulWidget {
   final Color userColour;
@@ -29,7 +28,7 @@ class _ChangePasswordState extends State<ChangePassword> {
       appBar: AppBar(
         title: const Text('Change Password'),
         centerTitle: true,
-        backgroundColor: kCDOColour,
+        backgroundColor: widget.userColour,
       ),
       body: Center(
         child: SingleChildScrollView(
@@ -113,7 +112,7 @@ class _ChangePasswordState extends State<ChangePassword> {
                 height: 20,
               ),
               CustomButton(
-                buttonColour: kCDOColour,
+                buttonColour: widget.userColour,
                 horizontalPadding: 25,
                 buttonText: 'Submit',
                 onPressed: () {
@@ -131,12 +130,13 @@ class _ChangePasswordState extends State<ChangePassword> {
   void updatePassword(String currentPassword, String newPassword) async {
     if (_formKey.currentState!.validate()) {
       try {
-        final user = await FirebaseAuth.instance.currentUser;
+        final user = FirebaseAuth.instance.currentUser;
         final cred = EmailAuthProvider.credential(
             email: user!.email as String, password: currentPassword);
         await user
             .reauthenticateWithCredential(cred)
             .then((value) => user.updatePassword(newPassword));
+        await FirebaseAuth.instance.signOut();
         Navigator.of(context).pushReplacement(MaterialPageRoute(
             builder: (context) => const RedirectToLoginScreen(
                   textToDisplay:
@@ -150,13 +150,9 @@ class _ChangePasswordState extends State<ChangePassword> {
         } else if (errorText == 'wrong-password') {
           errorText = 'Current password was incorrect, please try again';
         }
-        Fluttertoast.showToast(
+        customToast(
           msg: errorText!,
-          gravity: ToastGravity.CENTER,
-          timeInSecForIosWeb: 3,
           backgroundColor: Colors.red,
-          textColor: Colors.white,
-          fontSize: 16.0,
         );
       }
     }
