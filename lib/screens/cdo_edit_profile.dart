@@ -157,7 +157,7 @@ class _CDOEditProfileState extends State<CDOEditProfile> {
         });
         customToast(
           msg: 'Updates Applied',
-          backgroundColor: Colors.red,
+          backgroundColor: Colors.green,
         );
         Navigator.pop(context, updateProfileInfo());
       } on FirebaseAuthException catch (error) {

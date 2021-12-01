@@ -1,3 +1,5 @@
+//import 'dart:js';
+
 import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
@@ -51,34 +53,94 @@ class _CDODashboardState extends State<CDODashboard> {
               setState(() => _currentIndex = index);
             },
             children: <Widget>[
-              Center(
-                child: SingleChildScrollView(
-                  child: Padding(
-                    padding: const EdgeInsets.all(25.0),
-                    child: Column(
-                      children: [
-                        const Text(
-                          "Job Page",
-                        ),
-                        // when retreiving jobs, make them populate here?
-                        Container(
-                          alignment: Alignment.bottomRight,
-                          child: FloatingActionButton(
-                            onPressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) =>
-                                      const ConstructionPage(),
+              SingleChildScrollView(
+                child: Padding(
+                  padding: const EdgeInsets.all(25.0),
+                  child: Column(
+                    children: [
+                      StreamBuilder<QuerySnapshot>(
+                        stream: FirebaseFirestore.instance
+                            .collection('jobs')
+                            .where('uidCDO', isEqualTo: widget.currentUser.uid)
+                            .orderBy('dateCreated', descending: true)
+                            .snapshots(),
+                        builder: (context, snapshot) {
+                          if (!snapshot.hasData) {
+                            return const Center(
+                              child: CircularProgressIndicator(),
+                            );
+                          } else {
+                            final jobs = snapshot.data!.docs;
+                            jobs.sort((a, b) {
+                              return a['jobCompleted']
+                                  .toString()
+                                  .compareTo(b['jobCompleted'].toString());
+                            });
+                            return ListView(
+                              primary: false,
+                              shrinkWrap: true,
+                              children: jobs.map((doc) {
+                                return Card(
+                                  child: ListTile(
+                                    title: Text(
+                                      doc.id,
+                                      style:
+                                          const TextStyle(color: Colors.white),
+                                    ),
+                                    tileColor: doc['jobCompleted']
+                                        ? Colors.green
+                                        : Colors.red,
+                                    subtitle: Text(doc['jobType'],
+                                        style: TextStyle(
+                                            color: Colors.grey.shade300)),
+                                    trailing: const Icon(Icons.arrow_forward,
+                                        color: Colors.white),
+                                    onTap: () {
+                                      SolicitorModel? solUser;
+                                      FirebaseFirestore.instance
+                                          .collection('users')
+                                          .doc(doc['assignedSolicitor'])
+                                          .get()
+                                          .then((solicitor) {
+                                        if (solicitor.data() != null) {
+                                          solUser = SolicitorModel.fromMap(
+                                              solicitor.data());
+                                        }
+                                        Navigator.of(context).push(
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    ViewJobCDO(
+                                                      currentJob: doc,
+                                                      solicitor: solUser,
+                                                    )));
+                                      });
+                                    },
+                                  ),
+                                );
+                              }).toList(),
+                            );
+                          }
+                        },
+                      ),
+                      // when retreiving jobs, make them populate here?
+                      Container(
+                        alignment: Alignment.bottomRight,
+                        child: FloatingActionButton(
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => AddJobCDO(
+                                  currentUser: widget.currentUser,
                                 ),
-                              );
-                            },
-                            child: const Icon(Icons.add),
-                            backgroundColor: kCDOColour,
-                          ),
+                              ),
+                            );
+                          },
+                          child: const Icon(Icons.add),
+                          backgroundColor: kCDOColour,
                         ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
                 ),
               ),
