@@ -148,7 +148,7 @@ class _CDOEditProfileState extends State<CDOEditProfile> {
           msg: 'Updates Applied',
           gravity: ToastGravity.CENTER,
           timeInSecForIosWeb: 3,
-          backgroundColor: Colors.red,
+          backgroundColor: Colors.green,
           textColor: Colors.white,
           fontSize: 16.0,
         );
