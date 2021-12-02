@@ -1,28 +1,31 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+
+import 'package:rapid_reps/models/export.dart';
 import 'package:rapid_reps/services/export.dart';
+import 'package:rapid_reps/utilities/constants.dart';
 import 'package:rapid_reps/widgets/export.dart';
-import '../models/export.dart';
-import '../utilities/export.dart';
 
 // ignore: must_be_immutable
-class CDOEditProfile extends StatefulWidget {
-  late CDOModel currentUser;
-  CDOEditProfile({Key? key, required this.currentUser}) : super(key: key);
+class FirmRepEditProfile extends StatefulWidget {
+  late FirmRep currentUser;
+  FirmRepEditProfile({
+    Key? key,
+    required this.currentUser,
+  }) : super(key: key);
 
   @override
-  _CDOEditProfileState createState() => _CDOEditProfileState();
+  _FirmRepEditProfileState createState() => _FirmRepEditProfileState();
 }
 
-class _CDOEditProfileState extends State<CDOEditProfile> {
-  late String _policeStation = 'West Wickham Police Office   BR4 0LP';
+class _FirmRepEditProfileState extends State<FirmRepEditProfile> {
   final TextEditingController mobileNumberController = TextEditingController();
   final TextEditingController telephoneNumberController =
       TextEditingController();
+  final TextEditingController firmNameController = TextEditingController();
 
   final _formKey = GlobalKey<FormState>();
-
   final _auth = FirebaseAuth.instance;
   String? errorText;
 
@@ -32,7 +35,7 @@ class _CDOEditProfileState extends State<CDOEditProfile> {
         .doc(widget.currentUser.uid)
         .get()
         .then((value) {
-      widget.currentUser = CDOModel.fromMap(value.data());
+      widget.currentUser = FirmRep.fromMap(value.data());
     });
     return widget.currentUser;
   }
@@ -43,7 +46,7 @@ class _CDOEditProfileState extends State<CDOEditProfile> {
       appBar: AppBar(
         title: const Text('Edit Profile'),
         centerTitle: true,
-        backgroundColor: kCDOColour,
+        backgroundColor: kFirmRepColour,
       ),
       body: Center(
         child: SingleChildScrollView(
@@ -75,7 +78,7 @@ class _CDOEditProfileState extends State<CDOEditProfile> {
                             hintStyle: TextStyle(color: Colors.grey)),
                       ),
                       const SizedBox(
-                        height: 20,
+                        height: 10,
                       ),
                       TextFormField(
                         controller: telephoneNumberController,
@@ -93,44 +96,29 @@ class _CDOEditProfileState extends State<CDOEditProfile> {
                             hintStyle: TextStyle(color: Colors.grey)),
                       ),
                       const SizedBox(
-                        height: 20,
+                        height: 10,
                       ),
-                      DropdownButton<String>(
-                        hint: const Text(
-                          "Select a Police Station",
-                        ),
-                        icon: const Icon(
-                          Icons.arrow_downward,
-                        ),
-                        isExpanded: true,
-                        style: const TextStyle(
-                          color: Colors.grey,
-                        ),
-                        items: <String>[
-                          'West Wickham Police Office   BR4 0LP',
-                          'Croydon Police Station   CR0 6SR',
-                          'Berlin Underwood House   CR20 2XR'
-                        ].map<DropdownMenuItem<String>>((String value) {
-                          return DropdownMenuItem(
-                            value: value,
-                            child: Text(value),
-                          );
-                        }).toList(),
-                        onChanged: (String? value) {
-                          setState(() {
-                            _policeStation = value as String;
-                          });
+                      TextFormField(
+                        controller: firmNameController,
+                        validator: (firmName) {
+                          if (firmName!.isEmpty) {
+                            return 'Please enter your Firm name';
+                          }
                         },
-                        value: _policeStation,
+                        onSaved: (firmName) {
+                          firmNameController.text = firmName!;
+                        },
+                        decoration: const InputDecoration(
+                            hintText: 'Enter name of firm',
+                            hintStyle: TextStyle(color: Colors.grey)),
                       ),
-                      const SizedBox(height: 20),
                     ],
                   ),
                 ),
               ),
               const SizedBox(height: 20),
               CustomButton(
-                buttonColour: kCDOColour,
+                buttonColour: kSolicitorColour,
                 horizontalPadding: 25,
                 buttonText: 'Update Profile',
                 onPressed: () {
@@ -150,14 +138,16 @@ class _CDOEditProfileState extends State<CDOEditProfile> {
       try {
         final user = _auth.currentUser;
         var collection = FirebaseFirestore.instance.collection('users');
+
         collection.doc(user!.uid).update({
           'mobileNumber': mobileNumber,
-          'policeStation': _policeStation,
-          'telephoneNumber': telephoneNumber
+          'telephoneNumber': telephoneNumber,
+          'firm': firmNameController.text,
         });
+
         customToast(
           msg: 'Updates Applied',
-          backgroundColor: Colors.green,
+          backgroundColor: Colors.red,
         );
         Navigator.pop(context, updateProfileInfo());
       } on FirebaseAuthException catch (error) {

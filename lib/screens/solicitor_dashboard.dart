@@ -1,22 +1,22 @@
 // ignore_for_file: file_names
 
 import 'package:bottom_navy_bar/bottom_navy_bar.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:rapid_reps/services/export.dart';
 import '../models/export.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'export.dart';
 import '../utilities/export.dart';
 import '../widgets/export.dart';
 import 'dart:async';
 
+// ignore: must_be_immutable
 class SolicitorDashboard extends StatefulWidget {
-  final SolicitorModel currentUser;
+  late SolicitorModel currentUser;
 
-  const SolicitorDashboard({Key? key, required this.currentUser})
-      : super(key: key);
+  SolicitorDashboard({Key? key, required this.currentUser}) : super(key: key);
 
   @override
   _SolicitorDashboardState createState() => _SolicitorDashboardState();
@@ -39,7 +39,9 @@ class _SolicitorDashboardState extends State<SolicitorDashboard> {
   @override
   void initState() {
     super.initState();
-    getCurrentPosition();
+    getCurrentPosition().whenComplete(() {
+      setState(() {});
+    });
     _pageController = PageController();
   }
 
@@ -50,10 +52,17 @@ class _SolicitorDashboardState extends State<SolicitorDashboard> {
   }
 
   getCurrentPosition() async {
-    currentPosition = await Maps().locatePosition();
-    newGoogleMapController.animateCamera(
-      CameraUpdate.newCameraPosition(currentPosition),
-    );
+    try {
+      currentPosition = await Maps().locatePosition();
+      newGoogleMapController.animateCamera(
+        CameraUpdate.newCameraPosition(currentPosition),
+      );
+    } catch (e) {
+      customToast(
+        msg: e.toString(),
+        backgroundColor: Colors.red,
+      );
+    }
   }
 
   @override
@@ -100,14 +109,22 @@ class _SolicitorDashboardState extends State<SolicitorDashboard> {
                           ),
                           child: GoogleMap(
                             initialCameraPosition: _startPos,
-                            myLocationButtonEnabled: false,
+                            myLocationButtonEnabled: true,
                             myLocationEnabled: true,
                             zoomGesturesEnabled: true,
                             zoomControlsEnabled: true,
                             onMapCreated: (GoogleMapController controller) {
-                              _controller.complete(controller);
-                              newGoogleMapController = controller;
-                              getCurrentPosition();
+                              if (!_controller.isCompleted) {
+                                _controller.complete(controller);
+                                newGoogleMapController = controller;
+                                getCurrentPosition();
+                              }
+                            },
+                            gestureRecognizers: <
+                                Factory<OneSequenceGestureRecognizer>>{
+                              Factory<OneSequenceGestureRecognizer>(
+                                () => EagerGestureRecognizer(),
+                              ),
                             },
                           ),
                         ),
@@ -151,10 +168,20 @@ class _SolicitorDashboardState extends State<SolicitorDashboard> {
                             fontSize: 32,
                           ),
                         ),
-                        const SizedBox(
-                          height: 25,
+                        Visibility(
+                          visible: freelance!,
+                          child: Column(
+                            children: [
+                              const SizedBox(
+                                height: 25,
+                              ),
+                              getFirmDetails(
+                                freelance,
+                                widget.currentUser.firm,
+                              ),
+                            ],
+                          ),
                         ),
-                        getFirmDetails(freelance, widget.currentUser.firm),
                         const SizedBox(
                           height: 25,
                         ),
@@ -166,16 +193,30 @@ class _SolicitorDashboardState extends State<SolicitorDashboard> {
                             fontSize: 32,
                           ),
                         ),
-                        SizedBox(
-                          height: mobileNumber != null ? 25 : 0,
+                        Visibility(
+                          visible: mobileNumber != null,
+                          child: Column(
+                            children: [
+                              const SizedBox(
+                                height: 25,
+                              ),
+                              getNumber(mobileNumber),
+                              const SizedBox(
+                                height: 25,
+                              )
+                            ],
+                          ),
                         ),
-                        getNumber(mobileNumber),
-                        SizedBox(
-                          height: mobileNumber != null ? 25 : 0,
-                        ),
-                        getNumber(telephoneNumber),
-                        SizedBox(
-                          height: telephoneNumber != null ? 25 : 0,
+                        Visibility(
+                          visible: telephoneNumber != null,
+                          child: Column(
+                            children: [
+                              getNumber(telephoneNumber),
+                              const SizedBox(
+                                height: 25,
+                              ),
+                            ],
+                          ),
                         ),
                         Text(
                           "${widget.currentUser.email}",
@@ -194,16 +235,53 @@ class _SolicitorDashboardState extends State<SolicitorDashboard> {
                           backgroundColour: kSolicitorColour,
                           horizontalPadding: 35,
                           icon: Icons.edit,
-                          onPressed: () => Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const ConstructionPage(),
-                            ),
-                          ),
+                          onPressed: () async {
+                            final result = await Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => SolicitorEditProfile(
+                                  currentUser: widget.currentUser,
+                                ),
+                              ),
+                            );
+                            setState(() {
+                              if (result != null) {
+                                widget.currentUser = result;
+                                mobileNumber = widget.currentUser.mobileNumber;
+                                telephoneNumber =
+                                    widget.currentUser.telephoneNumber;
+                                freelance = widget.currentUser.freelancer;
+                              }
+                            });
+                          },
                         ),
                         const SizedBox(
                           height: 50,
                         ),
+                        customIconButton(
+                          context,
+                          label: 'Delete Account',
+                          backgroundColour: Colors.red,
+                          horizontalPadding: 25,
+                          icon: Icons.delete_forever,
+                          onPressed: () async {
+                            var action = await deleteAccountDialog(context);
+                            if (action != "Cancel" &&
+                                action != null &&
+                                action != "") {
+                              var result = await AuthService()
+                                  .deleteUser(widget.currentUser.email, action);
+                              if (result == true) {
+                                Navigator.of(context).pushReplacement(
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            const RedirectToLoginScreen(
+                                              textToDisplay: 'Account Deleted',
+                                            )));
+                              }
+                            }
+                          },
+                        )
                       ],
                     ),
                   ),
@@ -328,11 +406,5 @@ class _SolicitorDashboardState extends State<SolicitorDashboard> {
         ),
       ),
     );
-  }
-
-  Future<void> logout(BuildContext context) async {
-    await FirebaseAuth.instance.signOut();
-    Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (context) => const LoginScreen()));
   }
 }
