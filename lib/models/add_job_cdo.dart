@@ -6,6 +6,7 @@ class JobCDOModel {
   String? uidCDO;
   bool? jobCompleted;
   String? assignedSolicitor;
+  List? interestedSolicitors;
 
   JobCDOModel(
       {this.jobType,
@@ -14,7 +15,8 @@ class JobCDOModel {
       this.policeStation,
       this.uidCDO,
       this.jobCompleted,
-      this.assignedSolicitor});
+      this.assignedSolicitor,
+      this.interestedSolicitors});
 
   Map<String, dynamic> toMap() {
     return {
@@ -24,7 +26,8 @@ class JobCDOModel {
       'policeStation': policeStation,
       'uidCDO': uidCDO,
       'jobCompleted': jobCompleted,
-      'assignedSolicitor': assignedSolicitor
+      'assignedSolicitor': assignedSolicitor,
+      'interestedSolicitors': interestedSolicitors
     };
   }
 }

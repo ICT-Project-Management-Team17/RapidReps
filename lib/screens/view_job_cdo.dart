@@ -72,22 +72,8 @@ class _ViewJobCDOState extends State<ViewJobCDO> {
                               style: const TextStyle(
                                 color: Colors.grey,
                               ),
-                              items: <String>[
-                                'Select a Job Type',
-                                'Burglary',
-                                'Childhood abuse',
-                                'Crime abroad',
-                                'Cyber crime and online fraud',
-                                'Domestic abuse',
-                                'Fraud',
-                                'Hate crime',
-                                'Murder or manslaughter',
-                                'Robbery',
-                                'Sexual harassment',
-                                'Stalking and harassment',
-                                'Terrorism',
-                                'Violent crime'
-                              ].map<DropdownMenuItem<String>>((String value) {
+                              items: kJobTypes.map<DropdownMenuItem<String>>(
+                                  (String value) {
                                 return DropdownMenuItem(
                                   value: value,
                                   child: Text(
@@ -188,7 +174,7 @@ class _ViewJobCDOState extends State<ViewJobCDO> {
                                 SizedBox(
                                   height: 20,
                                 ),
-                                Text('FirstNAME: NULL')
+                                //Text('FirstNAME: NULL')
                               ])
                             : Column(children: [
                                 const SizedBox(

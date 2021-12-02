@@ -1,4 +1,5 @@
 import 'package:bottom_navy_bar/bottom_navy_bar.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
 import 'package:rapid_reps/screens/firm_rep_edit_profile.dart';
@@ -48,16 +49,75 @@ class _FirmRepDashboardState extends State<FirmRepDashboard> {
               setState(() => _currentIndex = index);
             },
             children: <Widget>[
-              Center(
-                child: SingleChildScrollView(
-                  child: Padding(
-                    padding: const EdgeInsets.all(25.0),
-                    child: Column(
-                      children: const [
-                        // widget goes here, need to know which one the team wants to go with for the dashboard
-                        Text("Front Page for Firm Rep"),
-                      ],
-                    ),
+              SingleChildScrollView(
+                child: Padding(
+                  padding: const EdgeInsets.all(25.0),
+                  child: Column(
+                    children: [
+                      StreamBuilder<QuerySnapshot>(
+                        stream: FirebaseFirestore.instance
+                            .collection('jobs')
+                            //.where('uidCDO', isEqualTo: widget.currentUser.uid)
+                            .orderBy('dateCreated', descending: true)
+                            .snapshots(),
+                        builder: (context, snapshot) {
+                          if (!snapshot.hasData) {
+                            return const Center(
+                              child: CircularProgressIndicator(),
+                            );
+                          } else {
+                            final jobs = snapshot.data!.docs;
+                            jobs.sort((a, b) {
+                              return a['jobCompleted']
+                                  .toString()
+                                  .compareTo(b['jobCompleted'].toString());
+                            });
+                            return ListView(
+                              primary: false,
+                              shrinkWrap: true,
+                              children: jobs.map((doc) {
+                                return Card(
+                                  child: ListTile(
+                                    title: Text(
+                                      doc.id,
+                                      style:
+                                          const TextStyle(color: Colors.white),
+                                    ),
+                                    tileColor: doc['jobCompleted']
+                                        ? Colors.green
+                                        : Colors.red,
+                                    subtitle: Text(doc['jobType'],
+                                        style: TextStyle(
+                                            color: Colors.grey.shade300)),
+                                    trailing: const Icon(Icons.arrow_forward,
+                                        color: Colors.white),
+                                    onTap: () {
+                                      SolicitorModel? solUser;
+                                      FirebaseFirestore.instance
+                                          .collection('users')
+                                          .doc(doc['assignedSolicitor'])
+                                          .get()
+                                          .then((solicitor) {
+                                        if (solicitor.data() != null) {
+                                          solUser = SolicitorModel.fromMap(
+                                              solicitor.data());
+                                        }
+                                        Navigator.of(context).push(
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    ViewJobFirm(
+                                                      currentJob: doc,
+                                                    )));
+                                      });
+                                    },
+                                  ),
+                                );
+                              }).toList(),
+                            );
+                          }
+                        },
+                      ),
+                    ],
                   ),
                 ),
               ),

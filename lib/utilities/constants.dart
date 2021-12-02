@@ -11,3 +11,20 @@ String kTerms =
 Color kCDOColour = const Color(0xFF009FE3);
 Color kSolicitorColour = const Color(0xFF009B14);
 Color kFirmRepColour = const Color(0xFF951B81);
+
+List<String> kJobTypes = [
+  'Select a Job Type',
+  'Burglary',
+  'Childhood abuse',
+  'Crime abroad',
+  'Cyber crime and online fraud',
+  'Domestic abuse',
+  'Fraud',
+  'Hate crime',
+  'Murder or manslaughter',
+  'Robbery',
+  'Sexual harassment',
+  'Stalking and harassment',
+  'Terrorism',
+  'Violent crime'
+];
