@@ -188,7 +188,7 @@ class _ViewJobCDOState extends State<ViewJobCDO> {
                                 SizedBox(
                                   height: 20,
                                 ),
-                                Text('FirstNAME: NULL')
+                                //Text('FirstNAME: NULL')
                               ])
                             : Column(children: [
                                 const SizedBox(

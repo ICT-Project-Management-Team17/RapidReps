@@ -286,7 +286,7 @@ class _SolicitorSignUpScreenState extends State<SolicitorSignUpScreen> {
                           experienceController.text = experience!;
                         },
                         decoration: const InputDecoration(
-                            hintText: 'Amount of experience',
+                            hintText: 'Years of experience',
                             hintStyle: TextStyle(color: Colors.grey)),
                       ),
                     ],

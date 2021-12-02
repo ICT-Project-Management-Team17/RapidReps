@@ -158,6 +158,7 @@ class _AddJobCDOState extends State<AddJobCDO> {
         addJobModel.uidCDO = user!.uid;
         addJobModel.jobCompleted = false;
         addJobModel.assignedSolicitor = null;
+        addJobModel.interestedSolicitors = [""];
 
         await firebaseFirestore.collection('jobs').add(addJobModel.toMap());
         Navigator.of(context).pop();

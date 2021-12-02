@@ -232,7 +232,7 @@ class _LoginScreenState extends State<LoginScreen> {
         // Flutter toast used to show the 'incorrect password' error
         customToast(
           msg: errorText!,
-          backgroundColor: Colors.green,
+          backgroundColor: Colors.red,
         );
       }
     }

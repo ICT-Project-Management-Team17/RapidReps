@@ -1,6 +1,7 @@
 // ignore_for_file: file_names
 
 import 'package:bottom_navy_bar/bottom_navy_bar.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
@@ -23,6 +24,7 @@ class SolicitorDashboard extends StatefulWidget {
 }
 
 class _SolicitorDashboardState extends State<SolicitorDashboard> {
+  bool registeredInterest = false;
   int _currentIndex = 0;
   late PageController _pageController;
   late bool? freelance = widget.currentUser.freelancer;
@@ -82,16 +84,90 @@ class _SolicitorDashboardState extends State<SolicitorDashboard> {
               setState(() => _currentIndex = index);
             },
             children: <Widget>[
-              Center(
-                child: SingleChildScrollView(
-                  child: Padding(
-                    padding: const EdgeInsets.all(25.0),
-                    child: Column(
-                      children: const [
-                        // widget goes here, need to know which one the team wants to go with for the dashboard
-                        Text("Front Page for solicitor"),
-                      ],
-                    ),
+              SingleChildScrollView(
+                child: Padding(
+                  padding: const EdgeInsets.all(25.0),
+                  child: Column(
+                    children: [
+                      StreamBuilder<QuerySnapshot>(
+                        stream: FirebaseFirestore.instance
+                            .collection('jobs')
+                            .where('jobCompleted', isEqualTo: false)
+                            // .where('assignedSolicitor', isNull: true)
+                            .orderBy('dateCreated', descending: true)
+                            .snapshots(),
+                        builder: (context, snapshot) {
+                          if (!snapshot.hasData) {
+                            return const Center(
+                              child: CircularProgressIndicator(),
+                            );
+                          } else {
+                            final jobs = snapshot.data!.docs;
+                            jobs.removeWhere((element) =>
+                                element['assignedSolicitor'] != null &&
+                                element['assignedSolicitor'] !=
+                                    widget.currentUser.uid);
+                            jobs.sort((a, b) {
+                              return a['jobCompleted']
+                                  .toString()
+                                  .compareTo(b['jobCompleted'].toString());
+                            });
+                            return ListView(
+                              primary: false,
+                              shrinkWrap: true,
+                              children: jobs.map((doc) {
+                                return Card(
+                                  child: ListTile(
+                                    title: Text(
+                                      doc.id,
+                                      style:
+                                          const TextStyle(color: Colors.black),
+                                    ),
+                                    tileColor: doc['assignedSolicitor'] ==
+                                            widget.currentUser.uid
+                                        ? Colors.orange
+                                        : Colors.white,
+                                    subtitle: Text(
+                                      doc['jobType'],
+                                    ),
+                                    trailing: const Icon(
+                                      Icons.arrow_forward,
+                                    ),
+                                    onTap: () {
+                                      SolicitorModel? solUser;
+                                      FirebaseFirestore.instance
+                                          .collection('users')
+                                          .doc(doc['assignedSolicitor'])
+                                          .get()
+                                          .then((solicitor) {
+                                        if (solicitor.data() != null) {
+                                          solUser = SolicitorModel.fromMap(
+                                              solicitor.data());
+                                        }
+                                        // bool registeredInterest = false;
+                                        // checkIfInterested(doc);
+                                        Navigator.of(context).push(
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    ViewJobSolicitor(
+                                                      currentJob: doc,
+                                                      solicitor: solUser,
+                                                      currentUser:
+                                                          widget.currentUser,
+                                                      registeredInterestQ:
+                                                          checkIfInterested(
+                                                              doc),
+                                                    )));
+                                      });
+                                    },
+                                  ),
+                                );
+                              }).toList(),
+                            );
+                          }
+                        },
+                      ),
+                    ],
                   ),
                 ),
               ),
@@ -186,7 +262,7 @@ class _SolicitorDashboardState extends State<SolicitorDashboard> {
                           height: 25,
                         ),
                         Text(
-                          "Experience: ${widget.currentUser.experience}",
+                          "Experience: ${widget.currentUser.experience} years",
                           style: const TextStyle(
                             color: Colors.black,
                             fontWeight: FontWeight.w500,
@@ -406,5 +482,19 @@ class _SolicitorDashboardState extends State<SolicitorDashboard> {
         ),
       ),
     );
+  }
+
+  bool checkIfInterested(doc) {
+    bool interested = false;
+    FirebaseFirestore.instance
+        .collection('jobs')
+        .doc(doc.id)
+        .collection('interestedSolicitors')
+        .doc(widget.currentUser.uid)
+        .get()
+        .then((snapshot) => {
+              interested = true,
+            });
+    return interested;
   }
 }
