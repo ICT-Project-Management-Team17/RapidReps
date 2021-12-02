@@ -90,9 +90,16 @@ class _ForgotYourPasswordState extends State<ForgotYourPassword> {
                           horizontalPadding: 70,
                           buttonText: 'Reset',
                           onPressed: () async {
-                            _auth.sendPasswordResetEmail(email: 'email');
+                            sendPasswordResetEmail();
                             Navigator.pushNamed(
                                 context, "Your reset mail has been sent.");
+                          },
+                        ),
+                        CustomButton(
+                          buttonColour: const Color(0xFFF49413),
+                          horizontalPadding: 70,
+                          buttonText: 'Back',
+                          onPressed: () {
                             MaterialPageRoute(
                                 builder: (context) => const LoginScreen());
                           },
@@ -113,7 +120,7 @@ class _ForgotYourPasswordState extends State<ForgotYourPassword> {
     if (_formKey.currentState!.validate()) {
       try {
         final user = FirebaseAuth.instance.currentUser;
-        await _auth.sendPasswordResetEmail(email: 'email');
+        await _auth.sendPasswordResetEmail(email: currentEmailController.text);
       } on FirebaseAuthException catch (error) {
         errorText = error.code;
         if (errorText == 'Sorry we could not find your accout') {}
