@@ -17,3 +17,4 @@ export 'add_job.dart';
 export 'view_job_cdo.dart';
 export 'solicitor_edit_profile.dart';
 export 'view_job_solicitor.dart';
+export 'view_job_firmrep.dart';

@@ -3,7 +3,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
 import 'package:rapid_reps/screens/firm_rep_edit_profile.dart';
-import 'package:rapid_reps/screens/view_job_firmrep.dart';
 import 'package:rapid_reps/services/export.dart';
 import '../models/export.dart';
 import 'export.dart';
