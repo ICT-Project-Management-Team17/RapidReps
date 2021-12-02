@@ -1,19 +1,12 @@
-import 'dart:html';
-
 import 'package:flutter/cupertino.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:geolocator/geolocator.dart';
-import 'package:rapid_reps/models/export.dart';
 import 'package:rapid_reps/screens/export.dart';
 import 'package:rapid_reps/services/custom_toast.dart';
 import 'package:rapid_reps/widgets/custom_button.dart';
 
 class ForgotYourPassword extends StatefulWidget {
-  final Color userColour;
-  const ForgotYourPassword({Key? key, required this.userColour})
-      : super(key: key);
+  const ForgotYourPassword({Key? key}) : super(key: key);
 
   @override
   _ForgotYourPasswordState createState() => _ForgotYourPasswordState();
@@ -91,8 +84,13 @@ class _ForgotYourPasswordState extends State<ForgotYourPassword> {
                           buttonText: 'Reset',
                           onPressed: () async {
                             sendPasswordResetEmail();
-                            Navigator.pushNamed(
-                                context, "Your reset mail has been sent.");
+                            Navigator.of(context).pushReplacement(
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        const RedirectToLoginScreen(
+                                          textToDisplay:
+                                              'Password Email has been sent',
+                                        )));
                           },
                         ),
                         CustomButton(
@@ -100,8 +98,7 @@ class _ForgotYourPasswordState extends State<ForgotYourPassword> {
                           horizontalPadding: 70,
                           buttonText: 'Back',
                           onPressed: () {
-                            MaterialPageRoute(
-                                builder: (context) => const LoginScreen());
+                            Navigator.pop(context);
                           },
                         ),
                       ],
@@ -119,12 +116,12 @@ class _ForgotYourPasswordState extends State<ForgotYourPassword> {
   void sendPasswordResetEmail() async {
     if (_formKey.currentState!.validate()) {
       try {
-        final user = FirebaseAuth.instance.currentUser;
         await _auth.sendPasswordResetEmail(email: currentEmailController.text);
       } on FirebaseAuthException catch (error) {
         errorText = error.code;
-        if (errorText == 'Sorry we could not find your accout') {}
-        customToast(msg: errorText!, backgroundColor: Colors.red);
+        // if (errorText == 'Sorry we could not find your accout') {}
+        // customToast(msg: errorText!, backgroundColor: Colors.red);
+        print(errorText);
       }
     }
   }
