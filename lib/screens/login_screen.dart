@@ -149,13 +149,19 @@ class _LoginScreenState extends State<LoginScreen> {
                           const SizedBox(
                             height: 6,
                           ),
-                          const TextButton(
-                            onPressed: null,
-                            child: Text(
-                              'Forgot Password',
-                              style:
-                                  TextStyle(fontSize: 15, color: Colors.blue),
-                            ),
+                          CustomButton(
+                            buttonColour: const Color(0xFF951B81),
+                            horizontalPadding: 60,
+                            buttonText: 'Forgot Password',
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      const ForgotYourPassword(),
+                                ),
+                              );
+                            },
                           ),
                         ],
                       ),
