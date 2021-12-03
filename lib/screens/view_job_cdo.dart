@@ -7,6 +7,7 @@ import 'package:rapid_reps/models/export.dart';
 import 'package:rapid_reps/utilities/export.dart';
 import 'package:rapid_reps/widgets/export.dart';
 
+// ignore: must_be_immutable
 class ViewJobCDO extends StatefulWidget {
   QueryDocumentSnapshot currentJob;
   SolicitorModel? solicitor;
@@ -278,6 +279,7 @@ class _ViewJobCDOState extends State<ViewJobCDO> {
   }
 
   Future<Column> getSolicitor() async {
+    // ignore: unused_local_variable
     var document = await FirebaseFirestore.instance
         .collection('users')
         .doc(widget.currentJob['assignedSolicitor'])

@@ -1,8 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:rapid_reps/screens/testlist.dart';
 import 'package:rapid_reps/services/export.dart';
 import '../models/export.dart';
 
@@ -147,10 +145,10 @@ class _LoginScreenState extends State<LoginScreen> {
                             },
                           ),
                           const SizedBox(
-                            height: 6,
+                            height: 25,
                           ),
                           CustomButton(
-                            buttonColour: const Color(0xFF951B81),
+                            buttonColour: const Color(0xFFF49413),
                             horizontalPadding: 60,
                             buttonText: 'Forgot Password',
                             onPressed: () {

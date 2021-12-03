@@ -5,6 +5,7 @@ import 'package:rapid_reps/services/export.dart';
 import 'package:rapid_reps/utilities/export.dart';
 import 'package:rapid_reps/widgets/export.dart';
 
+// ignore: must_be_immutable
 class ViewJobSolicitor extends StatefulWidget {
   QueryDocumentSnapshot currentJob;
   SolicitorModel? solicitor;
@@ -23,9 +24,9 @@ class ViewJobSolicitor extends StatefulWidget {
 }
 
 class _ViewJobSolicitorState extends State<ViewJobSolicitor> {
-  int _currentIndex = 0;
+  final int _currentIndex = 0;
   late PageController _pageController;
-  late String _jobType = widget.currentJob['jobType'];
+  late final String _jobType = widget.currentJob['jobType'];
   late String jobDes = widget.currentJob['jobDescription'];
   late TextEditingController jobDescriptionController =
       TextEditingController(text: jobDes);

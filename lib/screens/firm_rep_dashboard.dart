@@ -92,6 +92,7 @@ class _FirmRepDashboardState extends State<FirmRepDashboard> {
                                     trailing: const Icon(Icons.arrow_forward,
                                         color: Colors.white),
                                     onTap: () {
+                                      // ignore: unused_local_variable
                                       SolicitorModel? solUser;
                                       FirebaseFirestore.instance
                                           .collection('users')
@@ -247,64 +248,9 @@ class _FirmRepDashboardState extends State<FirmRepDashboard> {
                   ),
                 ),
               ),
-              Center(
-                child: SingleChildScrollView(
-                  child: Padding(
-                    padding: const EdgeInsets.all(25.0),
-                    child: Column(
-                      children: [
-                        const SizedBox(
-                          height: 50,
-                        ),
-                        customIconButton(
-                          context,
-                          label: 'Change Email',
-                          backgroundColour: kFirmRepColour,
-                          horizontalPadding: 25,
-                          icon: Icons.email,
-                          onPressed: () => Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => ChangeEmail(
-                                userColor: kFirmRepColour,
-                              ),
-                            ),
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 50,
-                        ),
-                        customIconButton(
-                          context,
-                          label: 'Change Password',
-                          backgroundColour: Colors.orange,
-                          horizontalPadding: 25,
-                          icon: Icons.password,
-                          onPressed: () => Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => ChangePassword(
-                                userColour: kFirmRepColour,
-                              ),
-                            ),
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 50,
-                        ),
-                        customIconButton(
-                          context,
-                          label: 'Logout',
-                          backgroundColour: Colors.red,
-                          horizontalPadding: 25,
-                          icon: Icons.logout,
-                          onPressed: () => logout(context),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              )
+              SettingsWidget(
+                userColour: kFirmRepColour,
+              ),
             ],
           ),
         ),

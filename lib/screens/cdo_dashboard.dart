@@ -4,6 +4,7 @@ import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+
 import 'package:rapid_reps/services/export.dart';
 
 import '../models/export.dart';
@@ -268,64 +269,9 @@ class _CDODashboardState extends State<CDODashboard> {
                   ),
                 ),
               ),
-              Center(
-                child: SingleChildScrollView(
-                  child: Padding(
-                    padding: const EdgeInsets.all(25.0),
-                    child: Column(
-                      children: [
-                        const SizedBox(
-                          height: 50,
-                        ),
-                        customIconButton(
-                          context,
-                          label: 'Change Email',
-                          backgroundColour: kCDOColour,
-                          horizontalPadding: 25,
-                          icon: Icons.email,
-                          onPressed: () => Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => ChangeEmail(
-                                userColor: kCDOColour,
-                              ),
-                            ),
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 50,
-                        ),
-                        customIconButton(
-                          context,
-                          label: 'Change Password',
-                          backgroundColour: Colors.orange,
-                          horizontalPadding: 25,
-                          icon: Icons.password,
-                          onPressed: () => Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => ChangePassword(
-                                userColour: kCDOColour,
-                              ),
-                            ),
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 50,
-                        ),
-                        customIconButton(
-                          context,
-                          label: 'Logout',
-                          backgroundColour: Colors.red,
-                          horizontalPadding: 25,
-                          icon: Icons.logout,
-                          onPressed: () => logout(context),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              )
+              SettingsWidget(
+                userColour: kCDOColour,
+              ),
             ],
           ),
         ),
@@ -379,3 +325,5 @@ class _CDODashboardState extends State<CDODashboard> {
     );
   }
 }
+
+
