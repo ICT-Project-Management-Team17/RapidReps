@@ -6,6 +6,7 @@ import 'package:rapid_reps/utilities/constants.dart';
 import 'package:rapid_reps/widgets/export.dart';
 import 'package:rapid_reps/models/export.dart';
 
+// ignore: must_be_immutable
 class AddJobCDO extends StatefulWidget {
   late CDOModel currentUser;
 

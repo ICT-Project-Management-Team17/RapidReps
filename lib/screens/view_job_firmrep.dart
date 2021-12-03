@@ -1,15 +1,13 @@
-import 'dart:ffi';
 
 import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:rapid_reps/models/export.dart';
 import 'package:rapid_reps/utilities/export.dart';
 import 'package:rapid_reps/widgets/export.dart';
 
-import 'export.dart';
 
+// ignore: must_be_immutable
 class ViewJobFirm extends StatefulWidget {
   QueryDocumentSnapshot currentJob;
   ViewJobFirm({Key? key, required this.currentJob}) : super(key: key);

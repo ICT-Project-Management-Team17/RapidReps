@@ -92,6 +92,7 @@ class _FirmRepDashboardState extends State<FirmRepDashboard> {
                                     trailing: const Icon(Icons.arrow_forward,
                                         color: Colors.white),
                                     onTap: () {
+                                      // ignore: unused_local_variable
                                       SolicitorModel? solUser;
                                       FirebaseFirestore.instance
                                           .collection('users')
