@@ -129,6 +129,9 @@ class _ForgotYourPasswordState extends State<ForgotYourPassword> {
         errorText = error.code;
         if (errorText == 'user-not-found') {
           errorText = 'Incorrect Email';
+        } else if (errorText == 'too-many-requests') {
+          errorText =
+              'Too many requests have been sent, please try again later';
         }
         // Flutter toast used to show the 'incorrect password' error
         customToast(
