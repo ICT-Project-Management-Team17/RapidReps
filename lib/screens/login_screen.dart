@@ -147,10 +147,10 @@ class _LoginScreenState extends State<LoginScreen> {
                             },
                           ),
                           const SizedBox(
-                            height: 6,
+                            height: 25,
                           ),
                           CustomButton(
-                            buttonColour: const Color(0xFF951B81),
+                            buttonColour: const Color(0xFFF49413),
                             horizontalPadding: 60,
                             buttonText: 'Forgot Password',
                             onPressed: () {
