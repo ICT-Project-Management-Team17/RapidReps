@@ -363,64 +363,9 @@ class _SolicitorDashboardState extends State<SolicitorDashboard> {
                   ),
                 ),
               ),
-              Center(
-                child: SingleChildScrollView(
-                  child: Padding(
-                    padding: const EdgeInsets.all(25.0),
-                    child: Column(
-                      children: [
-                        const SizedBox(
-                          height: 50,
-                        ),
-                        customIconButton(
-                          context,
-                          label: 'Change Email',
-                          backgroundColour: kSolicitorColour,
-                          horizontalPadding: 25,
-                          icon: Icons.email,
-                          onPressed: () => Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => ChangeEmail(
-                                userColor: kSolicitorColour,
-                              ),
-                            ),
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 50,
-                        ),
-                        customIconButton(
-                          context,
-                          label: 'Change Password',
-                          backgroundColour: Colors.orange,
-                          horizontalPadding: 25,
-                          icon: Icons.password,
-                          onPressed: () => Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => ChangePassword(
-                                userColour: kSolicitorColour,
-                              ),
-                            ),
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 50,
-                        ),
-                        customIconButton(
-                          context,
-                          label: 'Logout',
-                          backgroundColour: Colors.red,
-                          horizontalPadding: 25,
-                          icon: Icons.logout,
-                          onPressed: () => logout(context),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              )
+              SettingsWidget(
+                userColour: kSolicitorColour,
+              ),
             ],
           ),
         ),
