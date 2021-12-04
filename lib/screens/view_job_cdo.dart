@@ -239,20 +239,10 @@ class _ViewJobCDOState extends State<ViewJobCDO> {
               ),
             ]),
       ),
-      bottomNavigationBar: BottomNavyBar(
-        selectedIndex: _currentIndex,
-        showElevation: true,
-        itemCornerRadius: 24,
-        curve: Curves.easeIn,
-        onItemSelected: (index) {
-          setState(() => _currentIndex = index);
-          _pageController.animateToPage(index,
-              duration: const Duration(
-                milliseconds: 300,
-              ),
-              curve: Curves.ease);
-        },
-        items: <BottomNavyBarItem>[
+      bottomNavigationBar: CustomNavBar(
+        controller: _pageController,
+        currentIndex: _currentIndex,
+        navBarItems: <BottomNavyBarItem>[
           BottomNavyBarItem(
             icon: const Icon(
               Icons.apps,
