@@ -30,84 +30,80 @@ class _ForgotYourPasswordState extends State<ForgotYourPassword> {
             fit: BoxFit.cover,
           ),
         ),
-        child: Center(
-          child: SingleChildScrollView(
-            child: Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Container(
-                    height: 500,
-                    width: 325,
-                    decoration: const BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(25.0),
-                      ),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(25.0),
-                      child: Form(
-                        key: _formKey,
-                        child: Column(
-                          children: [
-                            const Text("Reset Password",
-                                style: TextStyle(fontSize: 36.0)),
-                            const SizedBox(
-                              height: 30,
-                            ),
-                            TextFormField(
-                              controller: currentEmailController,
-                              keyboardType: TextInputType.emailAddress,
-                              validator: (email) {
-                                if (email!.isEmpty) {
-                                  return "Please enter your email";
-                                }
-                                // Email validation
-                                if (!RegExp(
-                                        r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-                                    .hasMatch(email)) {
-                                  return "Please enter a valid email";
-                                }
-                                return null;
-                              },
-                              onSaved: (value) {
-                                currentEmailController.text = value!;
-                              },
-                              decoration: const InputDecoration(
-                                  hintText: 'Email',
-                                  hintStyle: TextStyle(color: Colors.grey)),
-                            ),
-                            const SizedBox(
-                              height: 25,
-                            ),
-                            CustomButton(
-                              buttonColour: const Color(0xFF951B81),
-                              horizontalPadding: 70,
-                              buttonText: 'Reset',
-                              onPressed: () async {
-                                sendPasswordResetEmail();
-                              },
-                            ),
-                            const SizedBox(
-                              height: 25,
-                            ),
-                            CustomButton(
-                              buttonColour: const Color(0xFFF49413),
-                              horizontalPadding: 70,
-                              buttonText: 'Back',
-                              onPressed: () {
-                                Navigator.pop(context);
-                              },
-                            ),
-                          ],
+        alignment: Alignment.center,
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                width: 325,
+                decoration: const BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(25.0),
+                  ),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(25.0),
+                  child: Form(
+                    key: _formKey,
+                    child: Column(
+                      children: [
+                        const Text("Reset Password",
+                            style: TextStyle(fontSize: 36.0)),
+                        const SizedBox(
+                          height: 30,
                         ),
-                      ),
+                        TextFormField(
+                          controller: currentEmailController,
+                          keyboardType: TextInputType.emailAddress,
+                          validator: (email) {
+                            if (email!.isEmpty) {
+                              return "Please enter your email";
+                            }
+                            // Email validation
+                            if (!RegExp(
+                                    r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                                .hasMatch(email)) {
+                              return "Please enter a valid email";
+                            }
+                            return null;
+                          },
+                          onSaved: (value) {
+                            currentEmailController.text = value!;
+                          },
+                          decoration: const InputDecoration(
+                              hintText: 'Email',
+                              hintStyle: TextStyle(color: Colors.grey)),
+                        ),
+                        const SizedBox(
+                          height: 25,
+                        ),
+                        CustomButton(
+                          buttonColour: const Color(0xFF951B81),
+                          horizontalPadding: 70,
+                          buttonText: 'Reset',
+                          onPressed: () async {
+                            sendPasswordResetEmail();
+                          },
+                        ),
+                        const SizedBox(
+                          height: 25,
+                        ),
+                        CustomButton(
+                          buttonColour: const Color(0xFFF49413),
+                          horizontalPadding: 70,
+                          buttonText: 'Back',
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                        ),
+                      ],
                     ),
                   ),
-                ],
+                ),
               ),
-            ),
+            ],
           ),
         ),
       ),
