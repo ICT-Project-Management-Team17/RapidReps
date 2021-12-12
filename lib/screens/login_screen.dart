@@ -46,7 +46,6 @@ class _LoginScreenState extends State<LoginScreen> {
               // mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Container(
-                  height: 500,
                   width: 325,
                   decoration: const BoxDecoration(
                     color: Colors.white,
