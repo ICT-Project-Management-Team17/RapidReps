@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:rapid_reps/screens/export.dart';
 import 'package:rapid_reps/services/export.dart';
+import 'package:rapid_reps/utilities/constants.dart';
 import 'package:rapid_reps/widgets/export.dart';
 
 class ForgotYourPassword extends StatefulWidget {
@@ -54,6 +55,14 @@ class _ForgotYourPasswordState extends State<ForgotYourPassword> {
                         const SizedBox(
                           height: 30,
                         ),
+                        const Text(
+                          'Please enter in the email you used when signing up for an account. You will receive an email with a link to reset your password',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(fontSize: 18.0),
+                        ),
+                        const SizedBox(
+                          height: 25,
+                        ),
                         TextFormField(
                           controller: currentEmailController,
                           keyboardType: TextInputType.emailAddress,
@@ -91,7 +100,7 @@ class _ForgotYourPasswordState extends State<ForgotYourPassword> {
                           height: 25,
                         ),
                         CustomButton(
-                          buttonColour: const Color(0xFFF49413),
+                          buttonColour: kCDOColour,
                           horizontalPadding: 70,
                           buttonText: 'Back',
                           onPressed: () {
