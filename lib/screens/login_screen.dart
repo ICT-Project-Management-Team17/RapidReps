@@ -146,20 +146,21 @@ class _LoginScreenState extends State<LoginScreen> {
                           const SizedBox(
                             height: 25,
                           ),
-                          CustomButton(
-                            buttonColour: const Color(0xFFF49413),
-                            horizontalPadding: 60,
-                            buttonText: 'Forgot Password',
-                            onPressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) =>
-                                      const ForgotYourPassword(),
-                                ),
-                              );
-                            },
-                          ),
+
+                          // CustomButton(
+                          //   buttonColour: const Color(0xFFF49413),
+                          //   horizontalPadding: 60,
+                          //   buttonText: 'Forgot Password',
+                          //   onPressed: () {
+                          //     Navigator.push(
+                          //       context,
+                          //       MaterialPageRoute(
+                          //         builder: (context) =>
+                          //             const ForgotYourPassword(),
+                          //       ),
+                          //     );
+                          //   },
+                          // ),
                         ],
                       ),
                     ),
